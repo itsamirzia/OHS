@@ -111,6 +111,18 @@ namespace OHDR
         {
             if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "")
             { MessageBox.Show("All details are mendatory."); return; }
+            DataTable dt = new DataTable();
+            db.SQLQuery(ref db.conn, ref dt, "select * from register where email_id regexp '"+textBox6.Text.ToLower().ToString()+"'");
+            if (dt.Rows.Count > 0)
+            {
+                DialogResult result = MessageBox.Show("Your Detail is alredy present with us.", "Would you like to continue with old data.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result.ToString().ToUpper()=="YES")
+                {
+
+                }
+                else
+                { MessageBox.Show("To replace your old. Contact with the administrator."); return; }
+            }
             db.ExecuteSQLQuery(ref db.conn, "insert into register values ('"+textBox1.Text.ToString().ToUpper()+ "','" + textBox2.Text.ToString().ToUpper() + "','" + textBox3.Text.ToString().ToUpper() + "','" + textBox4.Text.ToString().ToUpper() + "','" + textBox5.Text.ToString().ToUpper() + "','" + textBox6.Text.ToString().ToLower() + "',now())");
             try
             {
@@ -119,28 +131,27 @@ namespace OHDR
                     File.Delete("Temp.txt");
                    
                 }
-                File.WriteAllText("Temp.txt", textBox1.Text.ToUpper() + " " + textBox2.Text.ToUpper() + "\r\n" + textBox3.Text.ToUpper() + "\r\n" + textBox4.Text.ToUpper() + "\r\nVisitor");
+                File.WriteAllText("Temp.txt", textBox1.Text.ToUpper() + "  " + textBox2.Text.ToUpper() + "\r\n" + textBox3.Text.ToUpper() + "\r\n" + textBox4.Text.ToUpper());
 
                 
                     
                 streamToPrint = new StreamReader("Temp.txt");
                 try
                 {
-                    printFont = new Font("Arial", 16, FontStyle.Bold);
-                    printFontVisitor = new Font("Arial", 22, FontStyle.Bold);
+                    printFont = new Font("Arial", 12, FontStyle.Bold);
+                    printFontVisitor = new Font("Arial Black", 40, FontStyle.Bold);
                     PrintDocument printDocument = new PrintDocument();
 
                     // We ALWAYS want true here, as we will implement the 
                     // margin limitations later in code.
                     printDocument.OriginAtMargins = true;
-                    
+                   // printDocument.DefaultPageSettings.Margins(100, 100, 100, 100);
                     // Set some preferences, our method should print a box with any 
                     // combination of these properties being true/false.
                     printDocument.DefaultPageSettings.Landscape = false;
-                    printDocument.DefaultPageSettings.Margins.Top = 40;
-                    printDocument.DefaultPageSettings.Margins.Left = 20;
-                    printDocument.DefaultPageSettings.Margins.Right = 0;
-                    printDocument.DefaultPageSettings.Margins.Bottom = 0;
+                    //PaperSize ps = new PaperSize("Custom", 800, 816);
+                    //printDocument.DefaultPageSettings.PaperSize = ps;
+                    //printDocument.DefaultPageSettings.PaperSize.Width = (int)(100 / 25.4) * 102;
 
                     printDocument.PrintPage += new PrintPageEventHandler
                        (this.pd_PrintPage);
@@ -162,42 +173,29 @@ namespace OHDR
         }
         private void pd_PrintPage(object sender, PrintPageEventArgs ev)
         {
-            float linesPerPage = 0;
-            float yPos = 0;
+            ev.Graphics.PageUnit = GraphicsUnit.Millimeter;
+            float linesPerPage = 4;
+
             int count = 0;
-            float leftMargin = ev.MarginBounds.Left;
-            float topMargin = ev.MarginBounds.Top;
+
             string line = null;
-            //Rectangle m = ev.MarginBounds;
-            //m.Height = 100;
-            //m.Width = 102;
-            // Calculate the number of lines per page.
-            //linesPerPage = ev.MarginBounds.Height /
-            //   printFont.GetHeight(ev.Graphics);
-            linesPerPage = 4;
-            // Print each line of the file.
-            while (count < linesPerPage &&
+            Rectangle displayRectangle =
+            new Rectangle(2,40,98,45);
+            Rectangle displayRectangle2 =
+            new Rectangle(2, 85, 98, 15);
+            StringFormat format1 = new StringFormat(StringFormatFlags.NoClip);
+            format1.Alignment = StringAlignment.Center;
+            format1.LineAlignment = StringAlignment.Center;
+            string single = "";
+            while (count < linesPerPage-1 &&
                ((line = streamToPrint.ReadLine()) != null))
             {
-                yPos = topMargin + (count *
-                   printFont.GetHeight(ev.Graphics));
-                if (count == 3)
-                {
-                    ev.Graphics.DrawString(line, printFontVisitor, Brushes.Black,
-                      leftMargin, yPos, new StringFormat());
-                }
-                else
-                ev.Graphics.DrawString(line, printFont, Brushes.Black,
-                   leftMargin, yPos, new StringFormat());
-
+                single += line + Environment.NewLine + Environment.NewLine;
                 count++;
             }
-
-            // If more lines exist, print another page.
-            if (line != null)
-                ev.HasMorePages = true;
-            else
-                ev.HasMorePages = false;
+            ev.Graphics.DrawString(single, printFont, Brushes.Black, displayRectangle, format1);
+            ev.Graphics.DrawString("VISITOR", printFontVisitor, Brushes.Black,displayRectangle2, format1);
+            ev.HasMorePages = false;
         }
 
         //private void doprint()

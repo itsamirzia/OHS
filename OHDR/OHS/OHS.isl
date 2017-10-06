@@ -1171,7 +1171,9 @@
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 		<row><td>landis_1_landis_gyr</td><td>ProgramMenuFolder</td><td>LANDIS~1|Landis+Gyr</td><td/><td>1</td><td/></row>
+		<row><td>oe</td><td>ProgramMenuFolder</td><td>OE</td><td/><td>1</td><td/></row>
 		<row><td>ohrs</td><td>landis_1_landis_gyr</td><td>OHRS</td><td/><td>1</td><td/></row>
+		<row><td>ohrs1</td><td>oe</td><td>OHRS</td><td/><td>1</td><td/></row>
 	</table>
 
 	<table name="DrLocator">
@@ -2609,7 +2611,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>OE</td><td>0</td><td/><td>757429122</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>OE</td><td>0</td><td/><td>757407604</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>757430914</td></row>
@@ -3422,6 +3424,7 @@
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>757455650</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>OHS</td><td>0</td><td/><td>757401621</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>757430914</td></row>
@@ -3710,8 +3713,9 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>757430914</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.OE.com</td><td>0</td><td/><td>757429122</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>OE</td><td>0</td><td/><td>757429122</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.OE.com</td><td>0</td><td/><td>757407604</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>OE</td><td>0</td><td/><td>757407604</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>OHS</td><td>0</td><td/><td>757401621</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>757430914</td></row>
 	</table>
 
@@ -4330,9 +4334,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{FDDD553F-40C2-4D42-B347-F87E36B2826B}</td><td/></row>
+		<row><td>ProductCode</td><td>{94B675FA-DB11-4F3C-A285-0F9DE6DB4AE1}</td><td/></row>
 		<row><td>ProductName</td><td>OHRS</td><td/></row>
-		<row><td>ProductVersion</td><td>1.0.1</td><td/></row>
+		<row><td>ProductVersion</td><td>1.0.10</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4409,6 +4413,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="i2">InstallMode</col>
 		<row><td>FileKey1</td><td>OHDR.Primary_output</td><td/><td>landis_1_landis_gyr</td><td>2</td></row>
 		<row><td>FileKey2</td><td>OHDR.Primary_output</td><td/><td>ohrs</td><td>2</td></row>
+		<row><td>FileKey3</td><td>OHDR.Primary_output</td><td/><td>oe</td><td>2</td></row>
+		<row><td>FileKey4</td><td>OHDR.Primary_output</td><td/><td>ohrs1</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
