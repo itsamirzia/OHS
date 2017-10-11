@@ -153,6 +153,26 @@ namespace OHDR.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Oman_Health_logo {
+            get {
+                object obj = ResourceManager.GetObject("Oman-Health-logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OMANEXPO_1024x576 {
+            get {
+                object obj = ResourceManager.GetObject("OMANEXPO-1024x576", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap OmanHealth_logo {
             get {
                 object obj = ResourceManager.GetObject("OmanHealth-logo", resourceCulture);

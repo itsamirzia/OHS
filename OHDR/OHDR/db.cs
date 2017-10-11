@@ -11,7 +11,7 @@ namespace OHDR
 {
     class db
     {
-        public static MySqlConnection conn = new MySqlConnection("datasource=localhost;database=ohs;user id=root;allow zero datetime=true");
+        public static MySqlConnection conn = new MySqlConnection(ConfigurationManager.AppSettings["DBConnection"].ToString());
 
         //public static string username;
 

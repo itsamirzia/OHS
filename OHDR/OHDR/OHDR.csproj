@@ -37,6 +37,7 @@
       <HintPath>..\..\..\..\Coder\AmirCode\Africa_SitedownStatus\Africa_SitedownStatus\Africa_SitedownStatus\bin\Debug\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -133,6 +134,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\admin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Oman-Health-logo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OMANEXPO-1024x576.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

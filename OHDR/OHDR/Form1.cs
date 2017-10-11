@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using System.Configuration;
 using System.Data;
+using System.Configuration;
+
 
 namespace OHDR
 {
@@ -38,11 +34,13 @@ namespace OHDR
         private Font printFont;
         private Font printFontVisitor;
         private StreamReader streamToPrint;
+        public bool isOld = false;
+        public static string Registration_Type = ConfigurationManager.AppSettings["Registration_Type"].ToString().ToUpper();
+        public static DataTable dt_old = new DataTable();
         //public static MySqlConnection conn = new MySqlConnection("datasource=localhost;database=omanexpoevents;user id=root;password='';allow zero datetime=true");
         public Form1()
         {
             InitializeComponent();
-          
         }
 
         public void DrawRoundRect(Graphics g, Pen p, float X, float Y, float width, float height, float radius)
@@ -68,11 +66,11 @@ namespace OHDR
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            Graphics v = e.Graphics;
-            DrawRoundRect(v, Pens.Red, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
-            //Without rounded corners
-            //e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-            base.OnPaint(e);
+            //Graphics v = e.Graphics;
+            //DrawRoundRect(v, Pens.Red, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
+            ////Without rounded corners
+            ////e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
+            //base.OnPaint(e);
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -86,11 +84,11 @@ namespace OHDR
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-            Graphics v = e.Graphics;
-            DrawRoundRect(v, Pens.Red, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
-            //Without rounded corners
-            //e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-            base.OnPaint(e);
+            //Graphics v = e.Graphics;
+            //DrawRoundRect(v, Pens.Red, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
+            ////Without rounded corners
+            ////e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
+            //base.OnPaint(e);
         }
 
         private void panel4_Paint(object sender, PaintEventArgs e)
@@ -109,21 +107,49 @@ namespace OHDR
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "")
-            { MessageBox.Show("All details are mendatory."); return; }
-            DataTable dt = new DataTable();
-            db.SQLQuery(ref db.conn, ref dt, "select * from register where email_id regexp '"+textBox6.Text.ToLower().ToString()+"'");
-            if (dt.Rows.Count > 0)
+            if (dt_old.Rows.Count > 0)
             {
-                DialogResult result = MessageBox.Show("Your Detail is alredy present with us.", "Would you like to continue with old data.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dt_old.Rows[0][0].ToString().ToUpper() == textBox1.Text.ToString().ToUpper() &&
+                    dt_old.Rows[0][1].ToString().ToUpper() == textBox2.Text.ToString().ToUpper() &&
+                    dt_old.Rows[0][2].ToString().ToUpper() == textBox3.Text.ToString().ToUpper() &&
+                    dt_old.Rows[0][3].ToString().ToUpper() == textBox4.Text.ToString().ToUpper() &&
+                    dt_old.Rows[0][4].ToString().ToUpper() == textBox5.Text.ToString().ToUpper() &&
+                    dt_old.Rows[0][5].ToString().ToUpper() == textBox6.Text.ToString().ToUpper())
+                { }
+                else
+                { isOld = false; }
+            }
+            if (!isOld)
+            {
+                if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "")
+            { MessageBox.Show("All details are mendatory."); return; }
+
+                dt_old.Clear();
+            
+            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '"+textBox6.Text.ToLower().ToString()+"'");
+            if (dt_old.Rows.Count > 0)
+            {
+                DialogResult result = MessageBox.Show("Would you like to continue with old data.", "Your Detail is alredy present with us.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (result.ToString().ToUpper()=="YES")
                 {
-
+                    textBox1.Text = dt_old.Rows[0][0].ToString();
+                    textBox2.Text = dt_old.Rows[0][1].ToString();
+                    textBox3.Text = dt_old.Rows[0][2].ToString();
+                    textBox4.Text = dt_old.Rows[0][3].ToString();
+                    isOld = true;
+                    return;
                 }
                 else
                 { MessageBox.Show("To replace your old. Contact with the administrator."); return; }
             }
-            db.ExecuteSQLQuery(ref db.conn, "insert into register values ('"+textBox1.Text.ToString().ToUpper()+ "','" + textBox2.Text.ToString().ToUpper() + "','" + textBox3.Text.ToString().ToUpper() + "','" + textBox4.Text.ToString().ToUpper() + "','" + textBox5.Text.ToString().ToUpper() + "','" + textBox6.Text.ToString().ToLower() + "',now())");
+            
+                if (!db.ExecuteSQLQuery(ref db.conn, "insert into register values ('" + textBox1.Text.ToString().ToUpper() + "','" + textBox2.Text.ToString().ToUpper() + "','" + textBox3.Text.ToString().ToUpper() + "','" + textBox4.Text.ToString().ToUpper() + "','" + textBox5.Text.ToString().ToUpper() + "','" + textBox6.Text.ToString().ToLower() + "',now(),'" + Registration_Type + "')"))
+                {
+                    MessageBox.Show("Kindly check your DB configuration or your DB server is down");
+                    return;
+                }
+            }
+
             try
             {
                 if (File.Exists("Temp.txt"))
@@ -139,20 +165,25 @@ namespace OHDR
                 try
                 {
                     printFont = new Font("Arial", 12, FontStyle.Bold);
-                    printFontVisitor = new Font("Arial Black", 40, FontStyle.Bold);
+                    printFontVisitor = new Font("Arial Black", 36, FontStyle.Bold);
                     PrintDocument printDocument = new PrintDocument();
 
                     // We ALWAYS want true here, as we will implement the 
                     // margin limitations later in code.
-                    printDocument.OriginAtMargins = true;
-                   // printDocument.DefaultPageSettings.Margins(100, 100, 100, 100);
+                    //printDocument.OriginAtMargins = true;
+                    // printDocument.DefaultPageSettings.Margins(100, 100, 100, 100);
+                    printDocument.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
                     // Set some preferences, our method should print a box with any 
                     // combination of these properties being true/false.
                     printDocument.DefaultPageSettings.Landscape = false;
-                    //PaperSize ps = new PaperSize("Custom", 800, 816);
-                    //printDocument.DefaultPageSettings.PaperSize = ps;
+                    //printDocument.DefaultPageSettings.PrintableArea.Height = 400;
+                    PaperSize ps = new PaperSize("Custom", 816, 800);
+                    File.WriteAllText("log.txt", "Printable Area\r\nHeight ="+printDocument.DefaultPageSettings.PrintableArea.Height + " Width=" + printDocument.DefaultPageSettings.PrintableArea.Width + " X point=" + printDocument.DefaultPageSettings.PrintableArea.X + " Y point" + printDocument.DefaultPageSettings.PrintableArea.Y+"\r\n");
+                    
+                    printDocument.DefaultPageSettings.PaperSize = ps;
                     //printDocument.DefaultPageSettings.PaperSize.Width = (int)(100 / 25.4) * 102;
-
+                    //printDocument.DefaultPageSettings.PrintableArea.Height = (float)100;
+                    //printDocument.PrinterSettings.PrinterName = "ZDesigner S4M-203dpi ZPL (Copy 1)";
                     printDocument.PrintPage += new PrintPageEventHandler
                        (this.pd_PrintPage);
                     printDocument.Print();
@@ -168,33 +199,39 @@ namespace OHDR
             }
             MessageBox.Show("Thank you for the registration");
             textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
+            isOld = false;
             // MySqlConnection conn = new MySqlConnection(ConfigurationManager.AppSettings["conn"].ToString());
 
         }
         private void pd_PrintPage(object sender, PrintPageEventArgs ev)
         {
             ev.Graphics.PageUnit = GraphicsUnit.Millimeter;
-            float linesPerPage = 4;
+            float linesPerPage = 3;
 
             int count = 0;
 
             string line = null;
             Rectangle displayRectangle =
-            new Rectangle(2,40,98,45);
+            new Rectangle(2,35,98,30);
+            File.AppendAllText("log.txt", "displayRectangle Area\r\nHeight =" + displayRectangle.Height + " Width=" + displayRectangle.Width + " X point=" + displayRectangle.X + " Y point" + displayRectangle.Y + "\r\n");
+            
             Rectangle displayRectangle2 =
-            new Rectangle(2, 85, 98, 15);
+            new Rectangle(2, 80, 98, 15);
+            File.AppendAllText("log.txt", "displayRectangle2 Area\r\nHeight =" + displayRectangle2.Height + " Width=" + displayRectangle2.Width + " X point=" + displayRectangle2.X + " Y point" + displayRectangle2.Y + "\r\n");
             StringFormat format1 = new StringFormat(StringFormatFlags.NoClip);
             format1.Alignment = StringAlignment.Center;
             format1.LineAlignment = StringAlignment.Center;
             string single = "";
-            while (count < linesPerPage-1 &&
+            while (count < linesPerPage &&
                ((line = streamToPrint.ReadLine()) != null))
             {
                 single += line + Environment.NewLine + Environment.NewLine;
                 count++;
             }
+            //ev.Graphics.DrawRectangle(Pens.Black, displayRectangle);
+            //ev.Graphics.DrawRectangle(Pens.Black, displayRectangle2);
             ev.Graphics.DrawString(single, printFont, Brushes.Black, displayRectangle, format1);
-            ev.Graphics.DrawString("VISITOR", printFontVisitor, Brushes.Black,displayRectangle2, format1);
+            ev.Graphics.DrawString(Registration_Type, printFontVisitor, Brushes.Black,displayRectangle2, format1);
             ev.HasMorePages = false;
         }
 
@@ -272,6 +309,50 @@ namespace OHDR
                     f2.ShowDialog();
                 
             }
+        }
+
+        private void myTxtbx_Enter(object sender, EventArgs e)
+        {
+            if (myTxtbx.Text == "Enter Your Email...")
+            {
+                myTxtbx.Text = "";
+            }
+        }
+
+        private void myTxtbx_Leave(object sender, EventArgs e)
+        {
+            if (myTxtbx.Text == "")
+            {
+                myTxtbx.Text = "Enter Your Email...";
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            dt_old.Clear();
+            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '" + myTxtbx.Text.ToLower().ToString() + "'");
+            if (dt_old.Rows.Count > 0)
+            {
+
+                textBox1.Text = dt_old.Rows[0][0].ToString();
+                textBox2.Text = dt_old.Rows[0][1].ToString();
+                textBox3.Text = dt_old.Rows[0][2].ToString();
+                textBox4.Text = dt_old.Rows[0][3].ToString();
+                textBox5.Text = dt_old.Rows[0][4].ToString();
+                textBox6.Text = dt_old.Rows[0][5].ToString();
+                isOld = true;
+                myTxtbx.Text = "";
+                return;
+            }
+            else
+            { MessageBox.Show("Data Not Found."); myTxtbx.Text = ""; return; }
+            
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
+            isOld = false;
         }
     }
 }

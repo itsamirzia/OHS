@@ -1,12 +1,2 @@
-280 and counter = 0
-299.165 and counter = 1
-318.3301 and counter = 2
-337.4951 and counter = 3
-280 and counter = 0
-318.3301 and counter = 1
-356.6602 and counter = 2
-394.9902 and counter = 3
-280 and counter = 0
-318.3301 and counter = 1
-318.3301 and counter = 2
-337.4951 and counter = 3
+Printable Area
+Height =1133.333 Width=778.6667 X point=23.66667 Y point16.66667
