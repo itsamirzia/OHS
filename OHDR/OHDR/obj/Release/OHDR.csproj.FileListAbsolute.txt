@@ -1,0 +1,12 @@
+D:\AmirCode\PracticeCode\OHDR\OHDR\bin\Release\OHDR.exe.config
+D:\AmirCode\PracticeCode\OHDR\OHDR\bin\Release\OHDR.exe
+D:\AmirCode\PracticeCode\OHDR\OHDR\bin\Release\OHDR.pdb
+D:\AmirCode\PracticeCode\OHDR\OHDR\bin\Release\MySql.Data.dll
+D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Release\OHDR.admin.resources
+D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Release\OHDR.Form1.resources
+D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Release\OHDR.Form2.resources
+D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Release\OHDR.Properties.Resources.resources
+D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Release\OHDR.csproj.GenerateResource.Cache
+D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Release\OHDR.exe
+D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Release\OHDR.pdb
+D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Release\OHDR.Form3.resources

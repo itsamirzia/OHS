@@ -27,19 +27,23 @@ namespace OHDR
     //    // you will also need to add any appropriate class ctor
     //    // experiment with the PrintDocument class to learn more
     //}
+    
     public partial class Form1 : Form
     {
-        private System.ComponentModel.Container components;
         private System.Windows.Forms.Button printButton;
         private Font printFont;
         private Font printFontVisitor;
         private StreamReader streamToPrint;
         public bool isOld = false;
+        public static bool IsVisible;
         public static string Registration_Type = ConfigurationManager.AppSettings["Registration_Type"].ToString().ToUpper();
         public static DataTable dt_old = new DataTable();
         //public static MySqlConnection conn = new MySqlConnection("datasource=localhost;database=omanexpoevents;user id=root;password='';allow zero datetime=true");
+
+
         public Form1()
         {
+            
             InitializeComponent();
         }
 
@@ -61,7 +65,15 @@ namespace OHDR
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString());
+            this.Icon = icon;
+            //        System.ComponentModel.ComponentResourceManager resources =
+            //new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            //        this.Icon = ((System.Drawing.Icon)(resources.GetObject(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString())));//Image.FromFile(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString()); 
+            panel1.BackgroundImage = Image.FromFile(Application.StartupPath+"\\"+ ConfigurationManager.AppSettings["MainLogo"].ToString());
+            panel3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["HeaderImage"].ToString());
+            panel2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["OrganisedByImage"].ToString());
+            button1.BackColor = button2.BackColor = button3.BackColor = button4.BackColor = button5.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor =  Settings1.Default.OHS;// "#9E2065";
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -76,7 +88,8 @@ namespace OHDR
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
             Graphics v = e.Graphics;
-            DrawRoundRect(v, Pens.Red, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
+            Pen p = new Pen(Settings1.Default.OHS);
+            DrawRoundRect(v, p, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
             //Without rounded corners
             //e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
             base.OnPaint(e);
@@ -104,21 +117,10 @@ namespace OHDR
         {
 
         }
-
+        public string barcode;
         private void button1_Click(object sender, EventArgs e)
         {
-            if (dt_old.Rows.Count > 0)
-            {
-                if (dt_old.Rows[0][0].ToString().ToUpper() == textBox1.Text.ToString().ToUpper() &&
-                    dt_old.Rows[0][1].ToString().ToUpper() == textBox2.Text.ToString().ToUpper() &&
-                    dt_old.Rows[0][2].ToString().ToUpper() == textBox3.Text.ToString().ToUpper() &&
-                    dt_old.Rows[0][3].ToString().ToUpper() == textBox4.Text.ToString().ToUpper() &&
-                    dt_old.Rows[0][4].ToString().ToUpper() == textBox5.Text.ToString().ToUpper() &&
-                    dt_old.Rows[0][5].ToString().ToUpper() == textBox6.Text.ToString().ToUpper())
-                { }
-                else
-                { isOld = false; }
-            }
+           
             if (!isOld)
             {
                 if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "")
@@ -137,13 +139,20 @@ namespace OHDR
                     textBox3.Text = dt_old.Rows[0][2].ToString();
                     textBox4.Text = dt_old.Rows[0][3].ToString();
                     isOld = true;
+                        barcode = dt_old.Rows[0][8].ToString();
                     return;
                 }
                 else
-                { MessageBox.Show("To replace your old. Contact with the administrator."); return; }
+                { //MessageBox.Show("To replace your old. Contact with the administrator."); 
+                        return; }
             }
-            
-                if (!db.ExecuteSQLQuery(ref db.conn, "insert into register values ('" + textBox1.Text.ToString().ToUpper() + "','" + textBox2.Text.ToString().ToUpper() + "','" + textBox3.Text.ToString().ToUpper() + "','" + textBox4.Text.ToString().ToUpper() + "','" + textBox5.Text.ToString().ToUpper() + "','" + textBox6.Text.ToString().ToLower() + "',now(),'" + Registration_Type + "')"))
+                DataTable dtMaxNumber = new DataTable();
+                db.SQLQuery(ref db.conn, ref dtMaxNumber, "SELECT concat('FHO',max(cast(substring_index(empcode,'FHO',-1) as unsigned))+1) NextRegister FROM `register` where EmpCode regexp 'OHS'");
+                if (dtMaxNumber.Rows.Count > 0)
+                    barcode = dtMaxNumber.Rows[0][0].ToString();
+                else
+                    barcode = "FHO101";
+                if (!db.ExecuteSQLQuery(ref db.conn, "insert into register values ('" + textBox1.Text.ToString().ToUpper() + "','" + textBox2.Text.ToString().ToUpper() + "','" + textBox3.Text.ToString().ToUpper() + "','" + textBox4.Text.ToString().ToUpper() + "','" + textBox5.Text.ToString().ToUpper() + "','" + textBox6.Text.ToString().ToLower() + "',now(),'" + Registration_Type + "','"+dtMaxNumber.Rows[0][0]+"')"))
                 {
                     MessageBox.Show("Kindly check your DB configuration or your DB server is down");
                     return;
@@ -186,6 +195,10 @@ namespace OHDR
                     //printDocument.PrinterSettings.PrinterName = "ZDesigner S4M-203dpi ZPL (Copy 1)";
                     printDocument.PrintPage += new PrintPageEventHandler
                        (this.pd_PrintPage);
+                    //PrintController printController = new StandardPrintController();
+                    //printDocument.PrintController = printController;
+                    // printPreviewDialog1.Document = printDocument;
+                    // printPreviewDialog1.ShowDialog();
                     printDocument.Print();
                 }
                 finally
@@ -197,7 +210,25 @@ namespace OHDR
             {
                 MessageBox.Show(ex.Message);
             }
-            MessageBox.Show("Thank you for the registration");
+            Form3 f3 = new Form3();
+            f3.doenable();
+            f3.ShowDialog();
+            
+            if (dt_old.Rows.Count > 0)
+            {
+                if (dt_old.Rows[0][0].ToString().ToUpper() == textBox1.Text.ToString().ToUpper() &&
+                    dt_old.Rows[0][1].ToString().ToUpper() == textBox2.Text.ToString().ToUpper() &&
+                    dt_old.Rows[0][2].ToString().ToUpper() == textBox3.Text.ToString().ToUpper() &&
+                    dt_old.Rows[0][3].ToString().ToUpper() == textBox4.Text.ToString().ToUpper() &&
+                    dt_old.Rows[0][4].ToString().ToUpper() == textBox5.Text.ToString().ToUpper() &&
+                    dt_old.Rows[0][5].ToString().ToUpper() == textBox6.Text.ToString().ToUpper())
+                { }
+                else
+                {
+                    db.ExecuteSQLQuery(ref db.conn, "update register set fname='" + textBox1.Text.ToString().ToUpper() + "',lname='" + textBox2.Text.ToString().ToUpper() + "',Designation='" + textBox3.Text.ToString().ToUpper() + "', Company='" + textBox4.Text.ToString().ToUpper() + "', Mobile='" + textBox5.Text.ToString().ToUpper() + "', Registered_Time=now() where Email='" + textBox6.Text.ToString().ToLower() + "'");
+                    isOld = false;
+                }
+            }
             textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
             isOld = false;
             // MySqlConnection conn = new MySqlConnection(ConfigurationManager.AppSettings["conn"].ToString());
@@ -221,6 +252,26 @@ namespace OHDR
             StringFormat format1 = new StringFormat(StringFormatFlags.NoClip);
             format1.Alignment = StringAlignment.Center;
             format1.LineAlignment = StringAlignment.Center;
+            //string barcode = string.Empty;
+            //if (ConfigurationManager.AppSettings["BarcodeBox"].ToString().ToUpper() == "EMAIL")
+            //    barcode = textBox6.Text;
+            //else
+            //    barcode = textBox5.Text;
+            Bitmap bitm = new Bitmap(barcode.Length * 5, 20);
+            using (Graphics graphic = Graphics.FromImage(bitm))
+            {
+                Rectangle displayBarcode =
+                                new Rectangle(2, 65, 98, 15);
+
+                Font newfont = new Font("IDAutomationHC39M", 16);
+                PointF point = new PointF(2f, 2f);
+                SolidBrush black = new SolidBrush(Color.Black);
+                SolidBrush white = new SolidBrush(Color.White);
+                ev.Graphics.FillRectangle(white, 0, 0, bitm.Width/2, bitm.Height);
+                ev.Graphics.DrawString("*" + barcode + "*", newfont, black, displayBarcode, format1);
+
+
+            }
             string single = "";
             while (count < linesPerPage &&
                ((line = streamToPrint.ReadLine()) != null))
@@ -311,7 +362,7 @@ namespace OHDR
             }
         }
 
-        private void myTxtbx_Enter(object sender, EventArgs e)
+        private void myTxtbx_Enter_1(object sender, EventArgs e)
         {
             if (myTxtbx.Text == "Enter Your Email...")
             {
@@ -319,7 +370,7 @@ namespace OHDR
             }
         }
 
-        private void myTxtbx_Leave(object sender, EventArgs e)
+        private void myTxtbx_Leave_1(object sender, EventArgs e)
         {
             if (myTxtbx.Text == "")
             {
@@ -327,7 +378,7 @@ namespace OHDR
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click_1(object sender, EventArgs e)
         {
             dt_old.Clear();
             db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '" + myTxtbx.Text.ToLower().ToString() + "'");
@@ -341,6 +392,7 @@ namespace OHDR
                 textBox5.Text = dt_old.Rows[0][4].ToString();
                 textBox6.Text = dt_old.Rows[0][5].ToString();
                 isOld = true;
+                barcode = dt_old.Rows[0][8].ToString();
                 myTxtbx.Text = "";
                 return;
             }
@@ -349,10 +401,37 @@ namespace OHDR
             
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click_1(object sender, EventArgs e)
         {
             textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
             isOld = false;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            
+                if (IsVisible)
+                    panel7.Visible = true;
+                else
+                    panel7.Visible = false;
+            
+             
+            timer1.Enabled = false;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            admin a = new admin();
+            a.ShowDialog();
+            if (a.isclose)
+            {
+                if (IsVisible)
+                    IsVisible = false;
+                else
+                    IsVisible = true;
+                timer1.Enabled = true;
+            }
+            //Form1_Load(sender, e);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace OHDR
 {
@@ -16,6 +17,7 @@ namespace OHDR
         public admin()
         {
             InitializeComponent();
+            textBox1.ForeColor = textBox2.ForeColor = button1.BackColor = Settings1.Default.OHS;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -29,6 +31,12 @@ namespace OHDR
             { isclose = false; }
 
             this.Close();
+        }
+
+        private void admin_Load(object sender, EventArgs e)
+        {
+            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString());
+            this.Icon = icon;
         }
     }
 }

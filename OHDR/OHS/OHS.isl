@@ -52,7 +52,7 @@
 	<summary>
 		<codepage>1252</codepage>
 		<title>Installation Database</title>
-		<subject>OHRS</subject>
+		<subject>OES</subject>
 		<author>##ID_STRING2##</author>
 		<keywords>Installer,MSI,Database</keywords>
 		<comments>Contact:  Your local administrator</comments>
@@ -339,6 +339,7 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td>{FFB40134-336A-4801-84AD-2B9C5BC1D837}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>OHDR.Primary_output</td><td>{31FE942E-CAED-4C0C-812F-8C9497B978F4}</td><td>INSTALLDIR</td><td>2</td><td/><td>ohdr.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1048,6 +1049,7 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>INSTALLDIR</td><td>OHDR.Primary_output</td></row>
 	</table>
 
@@ -1138,7 +1140,7 @@
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>OHRS1</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>OE1</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
@@ -1149,6 +1151,7 @@
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>OE</td><td>ProgramFilesFolder</td><td>OE</td><td/><td>0</td><td/></row>
+		<row><td>OE1</td><td>OE</td><td>OE</td><td/><td>0</td><td/></row>
 		<row><td>OHRS</td><td>LANDIS_GYR</td><td>OHRS</td><td/><td>0</td><td/></row>
 		<row><td>OHRS1</td><td>OE</td><td>OHRS</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
@@ -1865,6 +1868,7 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>OHDR.Primary_output</td></row>
 	</table>
 
@@ -1880,7 +1884,11 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>fho.ico</td><td>ISX_DEFAULTCOMPONENT</td><td>FHO.ico</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\ziyam\Downloads\FHO.ico</td><td>1</td><td/></row>
+		<row><td>header.png</td><td>ISX_DEFAULTCOMPONENT</td><td>header.png</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Icons\ohs\header.png</td><td>1</td><td/></row>
+		<row><td>logo.png</td><td>ISX_DEFAULTCOMPONENT</td><td>logo.png</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Icons\ohs\logo.png</td><td>1</td><td/></row>
 		<row><td>ohdr.primary_output</td><td>OHDR.Primary_output</td><td>OHDR.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;OHDR&gt;|Built</td><td>3</td><td/></row>
+		<row><td>organisedby.jpg</td><td>ISX_DEFAULTCOMPONENT</td><td>ORGANI~1.JPG|organisedby.jpg</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Icons\ohs\organisedby.jpg</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -1896,6 +1904,7 @@
 	<table name="ISAssistantTag">
 		<col key="yes" def="s72">Tag</col>
 		<col def="S255">Data</col>
+		<row><td>_Built</td><td/></row>
 	</table>
 
 	<table name="ISBillBoard">
@@ -2022,6 +2031,7 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_335DD682_ED9F_490E_B786_01A5D345F17B_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>OHDR.Primary_output</td><td/><td/><td>_43EE8E85_19C3_4BD7_960A_386E90D9F618_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -2611,7 +2621,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>OE</td><td>0</td><td/><td>757407604</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>OE</td><td>0</td><td/><td>1965417487</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>757430914</td></row>
@@ -3425,6 +3435,8 @@
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>757455650</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>OHS</td><td>0</td><td/><td>757401621</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>1965401379</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>OES</td><td>0</td><td/><td>1965406416</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>757430914</td></row>
@@ -3713,9 +3725,12 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>757430914</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>757430914</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.OE.com</td><td>0</td><td/><td>757407604</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>OE</td><td>0</td><td/><td>757407604</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.Omanexpo.com</td><td>0</td><td/><td>1965360687</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>OE</td><td>0</td><td/><td>1965417487</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>OHS</td><td>0</td><td/><td>757401621</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>1965405475</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>1965383139</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>OHS</td><td>0</td><td/><td>1965366787</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>757430914</td></row>
 	</table>
 
@@ -3829,7 +3844,9 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\Users\ziyam\Downloads\favicon.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\Users\ziyam\Downloads\omanexpo.ico</td><td>0</td></row>
+		<row><td>_Built1_B4E13FFFA72A45FC8EAB9B9C4514C56D.exe</td><td/><td>C:\Users\ziyam\Downloads\omanexpo.ico</td><td>0</td></row>
+		<row><td>_Built_11ECB73B106E4E94A8B3E3A9C856A748.exe</td><td/><td>C:\Users\ziyam\Downloads\omanexpo.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -3962,7 +3979,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{07AFADB9-F64F-4084-8E30-DD50B4C31671}</td></row>
 		<row><td>ISUSSignature</td><td>{37319FB3-2CBF-4505-AC7A-433EF2F6AB99}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewShortcuts,viewUpgradePaths,viewObjects,viewRelease,viewCustomActions,viewSystemSearch,viewTextMessages,viewUI,viewServices,viewVRoots,viewEnvironmentVariables,viewFileExtensions,viewUpdateService,viewAppFiles,viewIniFiles,viewRegistry</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4334,9 +4351,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{94B675FA-DB11-4F3C-A285-0F9DE6DB4AE1}</td><td/></row>
-		<row><td>ProductName</td><td>OHRS</td><td/></row>
-		<row><td>ProductVersion</td><td>1.0.10</td><td/></row>
+		<row><td>ProductCode</td><td>{60E3D6A7-1124-44B2-9AAF-F505797040C1}</td><td/></row>
+		<row><td>ProductName</td><td>OES</td><td/></row>
+		<row><td>ProductVersion</td><td>1.0.13</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4415,6 +4432,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>FileKey2</td><td>OHDR.Primary_output</td><td/><td>ohrs</td><td>2</td></row>
 		<row><td>FileKey3</td><td>OHDR.Primary_output</td><td/><td>oe</td><td>2</td></row>
 		<row><td>FileKey4</td><td>OHDR.Primary_output</td><td/><td>ohrs1</td><td>2</td></row>
+		<row><td>_Built</td><td>OHDR.Primary_output</td><td/><td>ohrs1</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4500,6 +4518,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>_Built</td><td>ohrs1</td><td>##IDS_SHORTCUT_DISPLAY_NAME4##</td><td>OHDR.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_11ECB73B106E4E94A8B3E3A9C856A748.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME4##</td><td>OHDR.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_B4E13FFFA72A45FC8EAB9B9C4514C56D.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

@@ -73,6 +73,26 @@ namespace OHDR.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _3c219bac_3be8_4dab_b09a_0ff13e4ade82 {
+            get {
+                object obj = ResourceManager.GetObject("3c219bac-3be8-4dab-b09a-0ff13e4ade82", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3c219bac_3be8_4dab_b09a_0ff13e4ade821 {
+            get {
+                object obj = ResourceManager.GetObject("3c219bac-3be8-4dab-b09a-0ff13e4ade821", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap admin {
             get {
                 object obj = ResourceManager.GetObject("admin", resourceCulture);
@@ -93,9 +113,29 @@ namespace OHDR.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap fho_logo {
+            get {
+                object obj = ResourceManager.GetObject("fho-logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap header {
             get {
                 object obj = ResourceManager.GetObject("header", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HEADER_fhs {
+            get {
+                object obj = ResourceManager.GetObject("HEADER_fhs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
