@@ -36,7 +36,7 @@ namespace OHDR
         private StreamReader streamToPrint;
         public bool isOld = false;
         public static bool IsVisible;
-        public static string Registration_Type = ConfigurationManager.AppSettings["Registration_Type"].ToString().ToUpper();
+        public static string Registration_Type = Properties.Settings.Default.RegistrationType.ToString().ToUpper();
         public static DataTable dt_old = new DataTable();
         //public static MySqlConnection conn = new MySqlConnection("datasource=localhost;database=omanexpoevents;user id=root;password='';allow zero datetime=true");
 
@@ -65,15 +65,15 @@ namespace OHDR
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString());
+            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + Properties.Settings.Default.IconName);
             this.Icon = icon;
             //        System.ComponentModel.ComponentResourceManager resources =
             //new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             //        this.Icon = ((System.Drawing.Icon)(resources.GetObject(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString())));//Image.FromFile(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString()); 
-            panel1.BackgroundImage = Image.FromFile(Application.StartupPath+"\\"+ ConfigurationManager.AppSettings["MainLogo"].ToString());
-            panel3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["HeaderImage"].ToString());
-            panel2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["OrganisedByImage"].ToString());
-            button1.BackColor = button2.BackColor = button3.BackColor = button4.BackColor = button5.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor =  Settings1.Default.OHS;// "#9E2065";
+            //panel1.BackgroundImage = Image.FromFile(Application.StartupPath+"\\"+ ConfigurationManager.AppSettings["MainLogo"].ToString());
+            panel3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.HeaderImage);
+            panel2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.OrganisedByImage);
+            button1.BackColor = button3.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor =  Properties.Settings.Default.ThemeColor;// "#9E2065";
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -362,26 +362,26 @@ namespace OHDR
             }
         }
 
-        private void myTxtbx_Enter_1(object sender, EventArgs e)
+        private void myTxtbx_Enter(object sender, EventArgs e)
         {
-            if (myTxtbx.Text == "Enter Your Email...")
+            if (txtSearchBox1.Text == "Enter Your Email...")
             {
-                myTxtbx.Text = "";
+                txtSearchBox1.Text = "";
             }
         }
 
-        private void myTxtbx_Leave_1(object sender, EventArgs e)
+        private void myTxtbx_Leave(object sender, EventArgs e)
         {
-            if (myTxtbx.Text == "")
+            if (txtSearchBox1.Text == "")
             {
-                myTxtbx.Text = "Enter Your Email...";
+                txtSearchBox1.Text = "Enter Your Email...";
             }
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
             dt_old.Clear();
-            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '" + myTxtbx.Text.ToLower().ToString() + "'");
+            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '" + txtSearchBox1.Text.ToLower().ToString() + "'");
             if (dt_old.Rows.Count > 0)
             {
 
@@ -393,11 +393,11 @@ namespace OHDR
                 textBox6.Text = dt_old.Rows[0][5].ToString();
                 isOld = true;
                 barcode = dt_old.Rows[0][8].ToString();
-                myTxtbx.Text = "";
+                txtSearchBox1.Text = "";
                 return;
             }
             else
-            { MessageBox.Show("Data Not Found."); myTxtbx.Text = ""; return; }
+            { MessageBox.Show("Data Not Found."); txtSearchBox1.Text = ""; return; }
             
         }
 
@@ -432,6 +432,37 @@ namespace OHDR
                 timer1.Enabled = true;
             }
             //Form1_Load(sender, e);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            dt_old.Clear();
+            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email = '" + txtSearchBox1.Text.ToLower().ToString() + "' or EmpCode = '"+ txtSearchBox2.Text.ToLower().ToString() + "'");
+            if (dt_old.Rows.Count > 0)
+            {
+                panel7.Visible = false;
+                label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = true;
+                textBox1.Text = dt_old.Rows[0][0].ToString();
+                textBox2.Text = dt_old.Rows[0][1].ToString();
+                textBox3.Text = dt_old.Rows[0][2].ToString();
+                textBox4.Text = dt_old.Rows[0][3].ToString();
+                textBox5.Text = dt_old.Rows[0][4].ToString();
+                textBox6.Text = dt_old.Rows[0][5].ToString();
+                isOld = true;
+                barcode = dt_old.Rows[0][8].ToString();
+                txtSearchBox1.Text = txtSearchBox2.Text = string.Empty;
+                return;
+            }
+            else
+            { MessageBox.Show("Data Not Found."); txtSearchBox1.Text = ""; return; }
+
+        }
+
+        private void panel7_Paint(object sender, PaintEventArgs e)
+        {
+            //panel7.Location= new Point(524, 160);
+            //panel7.Anchor = AnchorStyles.Left;
+            //panel7.Anchor = AnchorStyles.Right;
         }
     }
 }
