@@ -23,7 +23,7 @@ namespace OHDR
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString());
+            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + Properties.Settings.Default.IconName);
             this.Icon = icon;
             dataGridView1.DataSource = null;
 

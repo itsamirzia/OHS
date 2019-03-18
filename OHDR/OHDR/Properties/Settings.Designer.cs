@@ -124,7 +124,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("logo.png")]
+        [global::System.Configuration.DefaultSettingValueAttribute("header.png")]
         public string HeaderImage {
             get {
                 return ((string)(this["HeaderImage"]));
@@ -133,7 +133,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("header.png")]
+        [global::System.Configuration.DefaultSettingValueAttribute("organisedby.jpg")]
         public string OrganisedByImage {
             get {
                 return ((string)(this["OrganisedByImage"]));
@@ -142,7 +142,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("icon.ico")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FHO.ico")]
         public string IconName {
             get {
                 return ((string)(this["IconName"]));

@@ -88,7 +88,7 @@ namespace OHDR
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
             Graphics v = e.Graphics;
-            Pen p = new Pen(Settings1.Default.OHS);
+            Pen p = new Pen(Properties.Settings.Default.ThemeColor);
             DrawRoundRect(v, p, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
             //Without rounded corners
             //e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
@@ -147,11 +147,11 @@ namespace OHDR
                         return; }
             }
                 DataTable dtMaxNumber = new DataTable();
-                db.SQLQuery(ref db.conn, ref dtMaxNumber, "SELECT concat('FHO',max(cast(substring_index(empcode,'FHO',-1) as unsigned))+1) NextRegister FROM `register` where EmpCode regexp 'OHS'");
+                db.SQLQuery(ref db.conn, ref dtMaxNumber, "SELECT concat('"+Properties.Settings.Default.PrefixCustomerCode+"',max(cast(substring_index(empcode,'FHO',-1) as unsigned))+1) NextRegister FROM `register` where EmpCode regexp 'OHS'");
                 if (dtMaxNumber.Rows.Count > 0)
                     barcode = dtMaxNumber.Rows[0][0].ToString();
                 else
-                    barcode = "FHO101";
+                    barcode = Properties.Settings.Default.PrefixCustomerCode+"101";
                 if (!db.ExecuteSQLQuery(ref db.conn, "insert into register values ('" + textBox1.Text.ToString().ToUpper() + "','" + textBox2.Text.ToString().ToUpper() + "','" + textBox3.Text.ToString().ToUpper() + "','" + textBox4.Text.ToString().ToUpper() + "','" + textBox5.Text.ToString().ToUpper() + "','" + textBox6.Text.ToString().ToLower() + "',now(),'" + Registration_Type + "','"+dtMaxNumber.Rows[0][0]+"')"))
                 {
                     MessageBox.Show("Kindly check your DB configuration or your DB server is down");
@@ -242,12 +242,14 @@ namespace OHDR
             int count = 0;
 
             string line = null;
+            string[] display1 = Properties.Settings.Default.TextArea.Split(',');
             Rectangle displayRectangle =
-            new Rectangle(2,35,98,30);
+            new Rectangle(Convert.ToInt32(display1[0]), Convert.ToInt32(display1[1]), Convert.ToInt32(display1[2]), Convert.ToInt32(display1[3]));
             File.AppendAllText("log.txt", "displayRectangle Area\r\nHeight =" + displayRectangle.Height + " Width=" + displayRectangle.Width + " X point=" + displayRectangle.X + " Y point" + displayRectangle.Y + "\r\n");
-            
+
+            string[] display2 = Properties.Settings.Default.BadgeArea.Split(',');
             Rectangle displayRectangle2 =
-            new Rectangle(2, 80, 98, 15);
+            new Rectangle(Convert.ToInt32(display2[0]), Convert.ToInt32(display2[1]), Convert.ToInt32(display2[2]), Convert.ToInt32(display2[3]));
             File.AppendAllText("log.txt", "displayRectangle2 Area\r\nHeight =" + displayRectangle2.Height + " Width=" + displayRectangle2.Width + " X point=" + displayRectangle2.X + " Y point" + displayRectangle2.Y + "\r\n");
             StringFormat format1 = new StringFormat(StringFormatFlags.NoClip);
             format1.Alignment = StringAlignment.Center;
@@ -260,8 +262,10 @@ namespace OHDR
             Bitmap bitm = new Bitmap(barcode.Length * 5, 20);
             using (Graphics graphic = Graphics.FromImage(bitm))
             {
+
+                string[] display3 = Properties.Settings.Default.BarcodeArea.Split(',');
                 Rectangle displayBarcode =
-                                new Rectangle(2, 65, 98, 15);
+                                new Rectangle(Convert.ToInt32(display3[0]), Convert.ToInt32(display3[1]), Convert.ToInt32(display3[2]), Convert.ToInt32(display3[3]));
 
                 Font newfont = new Font("IDAutomationHC39M", 16);
                 PointF point = new PointF(2f, 2f);
@@ -362,21 +366,7 @@ namespace OHDR
             }
         }
 
-        private void myTxtbx_Enter(object sender, EventArgs e)
-        {
-            if (txtSearchBox1.Text == "Enter Your Email...")
-            {
-                txtSearchBox1.Text = "";
-            }
-        }
 
-        private void myTxtbx_Leave(object sender, EventArgs e)
-        {
-            if (txtSearchBox1.Text == "")
-            {
-                txtSearchBox1.Text = "Enter Your Email...";
-            }
-        }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
@@ -441,7 +431,8 @@ namespace OHDR
             if (dt_old.Rows.Count > 0)
             {
                 panel7.Visible = false;
-                label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = true;
+                label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = true;
+
                 textBox1.Text = dt_old.Rows[0][0].ToString();
                 textBox2.Text = dt_old.Rows[0][1].ToString();
                 textBox3.Text = dt_old.Rows[0][2].ToString();
@@ -463,6 +454,22 @@ namespace OHDR
             //panel7.Location= new Point(524, 160);
             //panel7.Anchor = AnchorStyles.Left;
             //panel7.Anchor = AnchorStyles.Right;
+        }
+
+        private void txtSearchBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSearchBox1_Leave(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            panel7.Visible = true;
+            label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = false;
         }
     }
 }

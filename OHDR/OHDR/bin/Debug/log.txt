@@ -1,6 +1,6 @@
 Printable Area
 Height =1135.667 Width=793.3333 X point=16.66667 Y point16.66667
 displayRectangle Area
-Height =30 Width=98 X point=2 Y point35
+Height =25 Width=98 X point=2 Y point35
 displayRectangle2 Area
 Height =15 Width=98 X point=2 Y point80

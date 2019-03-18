@@ -36,13 +36,13 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="HeaderImage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">logo.png</Value>
-    </Setting>
-    <Setting Name="OrganisedByImage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">header.png</Value>
     </Setting>
+    <Setting Name="OrganisedByImage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">organisedby.jpg</Value>
+    </Setting>
     <Setting Name="IconName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">icon.ico</Value>
+      <Value Profile="(Default)">FHO.ico</Value>
     </Setting>
   </Settings>
 </SettingsFile>

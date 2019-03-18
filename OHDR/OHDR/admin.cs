@@ -17,7 +17,7 @@ namespace OHDR
         public admin()
         {
             InitializeComponent();
-            textBox1.ForeColor = textBox2.ForeColor = button1.BackColor = Settings1.Default.OHS;
+            textBox1.ForeColor = textBox2.ForeColor = button1.BackColor = Properties.Settings.Default.ThemeColor;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -35,7 +35,7 @@ namespace OHDR
 
         private void admin_Load(object sender, EventArgs e)
         {
-            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString());
+            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + Properties.Settings.Default.IconName);
             this.Icon = icon;
         }
     }

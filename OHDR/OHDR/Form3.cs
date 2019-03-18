@@ -22,13 +22,13 @@ namespace OHDR
         public void doenable()
         {
             timer1.Enabled = true;
-            timer1.Interval = Convert.ToInt32(ConfigurationManager.AppSettings["TearTime"].ToString());
+            timer1.Interval = Properties.Settings.Default.TearTime * 1000;
         }
         private void Form3_Load(object sender, EventArgs e)
         {
-            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString());
+            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + Properties.Settings.Default.IconName);
             this.Icon = icon;
-            label1.ForeColor=label2.ForeColor = Settings1.Default.OHS;
+            label1.ForeColor=label2.ForeColor = Properties.Settings.Default.ThemeColor;
         }
         public void Closeme()
         {
