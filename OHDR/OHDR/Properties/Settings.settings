@@ -33,7 +33,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PrintBarcode" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="HeaderImage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">header.png</Value>
@@ -43,6 +43,15 @@
     </Setting>
     <Setting Name="IconName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">FHO.ico</Value>
+    </Setting>
+    <Setting Name="EnableSideBanner" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LeftSideBarImage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">sideBanner.gif</Value>
+    </Setting>
+    <Setting Name="RightSideBarImage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">sideBanner.gif</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -33,7 +33,6 @@ namespace OHDR
         private System.Windows.Forms.Button printButton;
         private Font printFont;
         private Font printFontVisitor;
-        private StreamReader streamToPrint;
         public bool isOld = false;
         public static bool IsVisible;
         public static string Registration_Type = Properties.Settings.Default.RegistrationType.ToString().ToUpper();
@@ -42,8 +41,7 @@ namespace OHDR
 
 
         public Form1()
-        {
-            
+        {            
             InitializeComponent();
         }
 
@@ -67,10 +65,14 @@ namespace OHDR
         {
             Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + Properties.Settings.Default.IconName);
             this.Icon = icon;
-            //        System.ComponentModel.ComponentResourceManager resources =
-            //new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            //        this.Icon = ((System.Drawing.Icon)(resources.GetObject(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString())));//Image.FromFile(Application.StartupPath + "\\" + ConfigurationManager.AppSettings["IconImage"].ToString()); 
-            //panel1.BackgroundImage = Image.FromFile(Application.StartupPath+"\\"+ ConfigurationManager.AppSettings["MainLogo"].ToString());
+            if (Properties.Settings.Default.EnableSideBanner)
+            {
+                pictureBox1.Image = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.LeftSideBarImage);
+                pictureBox2.Image = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.RightSideBarImage);
+                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            
             panel3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.HeaderImage);
             panel2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.OrganisedByImage);
             button1.BackColor = button3.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor =  Properties.Settings.Default.ThemeColor;// "#9E2065";
@@ -78,11 +80,7 @@ namespace OHDR
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            //Graphics v = e.Graphics;
-            //DrawRoundRect(v, Pens.Red, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
-            ////Without rounded corners
-            ////e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-            //base.OnPaint(e);
+            
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -97,11 +95,6 @@ namespace OHDR
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-            //Graphics v = e.Graphics;
-            //DrawRoundRect(v, Pens.Red, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
-            ////Without rounded corners
-            ////e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-            //base.OnPaint(e);
         }
 
         private void panel4_Paint(object sender, PaintEventArgs e)
@@ -124,34 +117,40 @@ namespace OHDR
             if (!isOld)
             {
                 if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "")
-            { MessageBox.Show("All details are mendatory."); return; }
+                {
+                    MessageBox.Show("All details are mendatory.");
+                    return;
+                }
 
                 dt_old.Clear();
             
-            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '"+textBox6.Text.ToLower().ToString()+"'");
-            if (dt_old.Rows.Count > 0)
-            {
-                DialogResult result = MessageBox.Show("Would you like to continue with old data.", "Your Detail is alredy present with us.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (result.ToString().ToUpper()=="YES")
+                db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '"+textBox6.Text.ToLower().ToString()+"'");
+                if (dt_old.Rows.Count > 0)
                 {
-                    textBox1.Text = dt_old.Rows[0][0].ToString();
-                    textBox2.Text = dt_old.Rows[0][1].ToString();
-                    textBox3.Text = dt_old.Rows[0][2].ToString();
-                    textBox4.Text = dt_old.Rows[0][3].ToString();
-                    isOld = true;
+                    DialogResult result = MessageBox.Show("Would you like to continue with old data.", "Your Detail is alredy present with us.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (result.ToString().ToUpper()=="YES")
+                    {
+                        textBox1.Text = dt_old.Rows[0][0].ToString();
+                        textBox2.Text = dt_old.Rows[0][1].ToString();
+                        textBox3.Text = dt_old.Rows[0][2].ToString();
+                        textBox4.Text = dt_old.Rows[0][3].ToString();
+                        isOld = true;
                         barcode = dt_old.Rows[0][8].ToString();
-                    return;
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
-                else
-                { //MessageBox.Show("To replace your old. Contact with the administrator."); 
-                        return; }
-            }
                 DataTable dtMaxNumber = new DataTable();
-                db.SQLQuery(ref db.conn, ref dtMaxNumber, "SELECT concat('"+Properties.Settings.Default.PrefixCustomerCode+"',max(cast(substring_index(empcode,'FHO',-1) as unsigned))+1) NextRegister FROM `register` where EmpCode regexp 'OHS'");
+                db.SQLQuery(ref db.conn, ref dtMaxNumber, "SELECT concat('"+Properties.Settings.Default.PrefixCustomerCode+ "',max(cast(substring_index(empcode,'" + Properties.Settings.Default.PrefixCustomerCode + "',-1) as unsigned))+1) NextRegister FROM `register` where EmpCode regexp 'OHS'");
+
                 if (dtMaxNumber.Rows.Count > 0)
                     barcode = dtMaxNumber.Rows[0][0].ToString();
                 else
                     barcode = Properties.Settings.Default.PrefixCustomerCode+"101";
+
                 if (!db.ExecuteSQLQuery(ref db.conn, "insert into register values ('" + textBox1.Text.ToString().ToUpper() + "','" + textBox2.Text.ToString().ToUpper() + "','" + textBox3.Text.ToString().ToUpper() + "','" + textBox4.Text.ToString().ToUpper() + "','" + textBox5.Text.ToString().ToUpper() + "','" + textBox6.Text.ToString().ToLower() + "',now(),'" + Registration_Type + "','"+dtMaxNumber.Rows[0][0]+"')"))
                 {
                     MessageBox.Show("Kindly check your DB configuration or your DB server is down");
@@ -161,50 +160,37 @@ namespace OHDR
 
             try
             {
-                if (File.Exists("Temp.txt"))
-                {
-                    File.Delete("Temp.txt");
-                   
-                }
-                File.WriteAllText("Temp.txt", textBox1.Text.ToUpper() + "  " + textBox2.Text.ToUpper() + "\r\n" + textBox3.Text.ToUpper() + "\r\n" + textBox4.Text.ToUpper());
+                printFont = new Font("Arial", 12, FontStyle.Bold);
+                printFontVisitor = new Font("Arial Black", 36, FontStyle.Bold);
+                PrintDocument printDocument = new PrintDocument();
 
+                // We ALWAYS want true here, as we will implement the 
+                // margin limitations later in code.
+                //printDocument.OriginAtMargins = true;
+                // printDocument.DefaultPageSettings.Margins(100, 100, 100, 100);
+                printDocument.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
+
+                // Set some preferences, our method should print a box with any 
+                // combination of these properties being true/false.
+                printDocument.DefaultPageSettings.Landscape = false;
+
+                //printDocument.DefaultPageSettings.PrintableArea.Height = 400;
+                //PaperSize ps = new PaperSize("Custom", 816, 800);
+                    
+                    
+                //printDocument.DefaultPageSettings.PaperSize = ps;
+                //printDocument.DefaultPageSettings.PaperSize.Width = (int)(100 / 25.4) * 102;
+                //printDocument.DefaultPageSettings.PrintableArea.Height = (float)100;
+                //printDocument.PrinterSettings.PrinterName = "ZDesigner S4M-203dpi ZPL (Copy 1)";
+                printDocument.PrintPage += new PrintPageEventHandler
+                    (this.pd_PrintPage);
+
+                //PrintController printController = new StandardPrintController();
+                //printDocument.PrintController = printController;
+                // printPreviewDialog1.Document = printDocument;
+                // printPreviewDialog1.ShowDialog();
+                printDocument.Print();
                 
-                    
-                streamToPrint = new StreamReader("Temp.txt");
-                try
-                {
-                    printFont = new Font("Arial", 12, FontStyle.Bold);
-                    printFontVisitor = new Font("Arial Black", 36, FontStyle.Bold);
-                    PrintDocument printDocument = new PrintDocument();
-
-                    // We ALWAYS want true here, as we will implement the 
-                    // margin limitations later in code.
-                    //printDocument.OriginAtMargins = true;
-                    // printDocument.DefaultPageSettings.Margins(100, 100, 100, 100);
-                    printDocument.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
-                    // Set some preferences, our method should print a box with any 
-                    // combination of these properties being true/false.
-                    printDocument.DefaultPageSettings.Landscape = false;
-                    //printDocument.DefaultPageSettings.PrintableArea.Height = 400;
-                    PaperSize ps = new PaperSize("Custom", 816, 800);
-                    File.WriteAllText("log.txt", "Printable Area\r\nHeight ="+printDocument.DefaultPageSettings.PrintableArea.Height + " Width=" + printDocument.DefaultPageSettings.PrintableArea.Width + " X point=" + printDocument.DefaultPageSettings.PrintableArea.X + " Y point" + printDocument.DefaultPageSettings.PrintableArea.Y+"\r\n");
-                    
-                    //printDocument.DefaultPageSettings.PaperSize = ps;
-                    //printDocument.DefaultPageSettings.PaperSize.Width = (int)(100 / 25.4) * 102;
-                    //printDocument.DefaultPageSettings.PrintableArea.Height = (float)100;
-                    //printDocument.PrinterSettings.PrinterName = "ZDesigner S4M-203dpi ZPL (Copy 1)";
-                    printDocument.PrintPage += new PrintPageEventHandler
-                       (this.pd_PrintPage);
-                    //PrintController printController = new StandardPrintController();
-                    //printDocument.PrintController = printController;
-                    // printPreviewDialog1.Document = printDocument;
-                    // printPreviewDialog1.ShowDialog();
-                    printDocument.Print();
-                }
-                finally
-                {
-                    streamToPrint.Close();
-                }
             }
             catch (Exception ex)
             {
@@ -230,75 +216,53 @@ namespace OHDR
                 }
             }
             textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
-            isOld = false;
-            // MySqlConnection conn = new MySqlConnection(ConfigurationManager.AppSettings["conn"].ToString());
-
+            panel7.Visible = true;
+            isOld = label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
+            txtSearchBox1.Text = "Enter Your Email...";
+            txtSearchBox2.Text = "Enter Your Unique ID...";
         }
         private void pd_PrintPage(object sender, PrintPageEventArgs ev)
         {
             ev.Graphics.PageUnit = GraphicsUnit.Millimeter;
-            float linesPerPage = 3;
-
-            int count = 0;
-
-            string line = null;
             string[] display1 = Properties.Settings.Default.TextArea.Split(',');
             Rectangle displayRectangle =
             new Rectangle(Convert.ToInt32(display1[0]), Convert.ToInt32(display1[1]), Convert.ToInt32(display1[2]), Convert.ToInt32(display1[3]));
-            File.AppendAllText("log.txt", "displayRectangle Area\r\nHeight =" + displayRectangle.Height + " Width=" + displayRectangle.Width + " X point=" + displayRectangle.X + " Y point" + displayRectangle.Y + "\r\n");
-
+            
             string[] display2 = Properties.Settings.Default.BadgeArea.Split(',');
             Rectangle displayRectangle2 =
             new Rectangle(Convert.ToInt32(display2[0]), Convert.ToInt32(display2[1]), Convert.ToInt32(display2[2]), Convert.ToInt32(display2[3]));
-            File.AppendAllText("log.txt", "displayRectangle2 Area\r\nHeight =" + displayRectangle2.Height + " Width=" + displayRectangle2.Width + " X point=" + displayRectangle2.X + " Y point" + displayRectangle2.Y + "\r\n");
+
             StringFormat format1 = new StringFormat(StringFormatFlags.NoClip);
             format1.Alignment = StringAlignment.Center;
             format1.LineAlignment = StringAlignment.Center;
-            //string barcode = string.Empty;
-            //if (ConfigurationManager.AppSettings["BarcodeBox"].ToString().ToUpper() == "EMAIL")
-            //    barcode = textBox6.Text;
-            //else
-            //    barcode = textBox5.Text;
-            Bitmap bitm = new Bitmap(barcode.Length * 5, 20);
-            using (Graphics graphic = Graphics.FromImage(bitm))
+
+            if (Properties.Settings.Default.PrintBarcode)
             {
+                Bitmap bitm = new Bitmap(barcode.Length * 5, 20);
+                using (Graphics graphic = Graphics.FromImage(bitm))
+                {
 
-                string[] display3 = Properties.Settings.Default.BarcodeArea.Split(',');
-                Rectangle displayBarcode =
-                                new Rectangle(Convert.ToInt32(display3[0]), Convert.ToInt32(display3[1]), Convert.ToInt32(display3[2]), Convert.ToInt32(display3[3]));
+                    string[] display3 = Properties.Settings.Default.BarcodeArea.Split(',');
+                    Rectangle displayBarcode =
+                                    new Rectangle(Convert.ToInt32(display3[0]), Convert.ToInt32(display3[1]), Convert.ToInt32(display3[2]), Convert.ToInt32(display3[3]));
 
-                Font newfont = new Font("IDAutomationHC39M", 16);
-                PointF point = new PointF(2f, 2f);
-                SolidBrush black = new SolidBrush(Color.Black);
-                SolidBrush white = new SolidBrush(Color.White);
-                ev.Graphics.FillRectangle(white, 0, 0, bitm.Width/2, bitm.Height);
-                ev.Graphics.DrawString("*" + barcode + "*", newfont, black, displayBarcode, format1);
-
-
+                    Font newfont = new Font("IDAutomationHC39M", 16);
+                    PointF point = new PointF(2f, 2f);
+                    SolidBrush black = new SolidBrush(Color.Black);
+                    SolidBrush white = new SolidBrush(Color.White);
+                    ev.Graphics.FillRectangle(white, 0, 0, bitm.Width / 2, bitm.Height);
+                    ev.Graphics.DrawString("*" + barcode + "*", newfont, black, displayBarcode, format1);
+                }
             }
-            string single = "";
-            while (count < linesPerPage &&
-               ((line = streamToPrint.ReadLine()) != null))
-            {
-                single += line + Environment.NewLine + Environment.NewLine;
-                count++;
-            }
-            //ev.Graphics.DrawRectangle(Pens.Black, displayRectangle);
-            //ev.Graphics.DrawRectangle(Pens.Black, displayRectangle2);
-            ev.Graphics.DrawString(single, printFont, Brushes.Black, displayRectangle, format1);
+
+            string nameDesignationCompany = textBox1.Text + " " + textBox2.Text + Environment.NewLine + Environment.NewLine
+                +textBox3.Text + Environment.NewLine + Environment.NewLine
+                +textBox4.Text + Environment.NewLine + Environment.NewLine;
+
+            ev.Graphics.DrawString(nameDesignationCompany, printFont, Brushes.Black, displayRectangle, format1);
             ev.Graphics.DrawString(Registration_Type, printFontVisitor, Brushes.Black,displayRectangle2, format1);
             ev.HasMorePages = false;
         }
-
-        //private void doprint()
-        //{
-        //    PrintDoc printer = new PrintDoc();
-
-        //    //set PrintText
-        //    printer.PrintText = textBox1.Text+" "+ textBox2.Text + "\r\n"+ textBox3.Text + "\r\n" + textBox4.Text;
-
-        //    printer.Print();    // very straightforward
-        //}
 
 
 

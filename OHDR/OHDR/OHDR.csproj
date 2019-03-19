@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="db.sql" />
+    <None Include="Resources\sideBanner.gif" />
     <None Include="Resources\upload.png" />
     <None Include="Resources\back.png" />
     <None Include="Resources\3c219bac-3be8-4dab-b09a-0ff13e4ade821.jpg" />

@@ -1,15 +1,3 @@
-D:\AmirCode\PracticeCode\OHDR\OHDR\bin\Debug\OHDR.exe.config
-D:\AmirCode\PracticeCode\OHDR\OHDR\bin\Debug\OHDR.exe
-D:\AmirCode\PracticeCode\OHDR\OHDR\bin\Debug\OHDR.pdb
-D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Debug\OHDR.Properties.Resources.resources
-D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Debug\OHDR.csproj.GenerateResource.Cache
-D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Debug\OHDR.exe
-D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Debug\OHDR.pdb
-D:\AmirCode\PracticeCode\OHDR\OHDR\bin\Debug\MySql.Data.dll
-D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Debug\OHDR.Form1.resources
-D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Debug\OHDR.admin.resources
-D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Debug\OHDR.Form2.resources
-D:\AmirCode\PracticeCode\OHDR\OHDR\obj\Debug\OHDR.Form3.resources
 C:\MyDrive\Pers\GitRpo\OHS_Develop\OHDR\OHDR\bin\Debug\OHDR.exe.config
 C:\MyDrive\Pers\GitRpo\OHS_Develop\OHDR\OHDR\bin\Debug\OHDR.exe
 C:\MyDrive\Pers\GitRpo\OHS_Develop\OHDR\OHDR\bin\Debug\OHDR.pdb

@@ -115,7 +115,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool PrintBarcode {
             get {
                 return ((bool)(this["PrintBarcode"]));
@@ -146,6 +146,33 @@ namespace OHDR.Properties {
         public string IconName {
             get {
                 return ((string)(this["IconName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableSideBanner {
+            get {
+                return ((bool)(this["EnableSideBanner"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("sideBanner.gif")]
+        public string LeftSideBarImage {
+            get {
+                return ((string)(this["LeftSideBarImage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("sideBanner.gif")]
+        public string RightSideBarImage {
+            get {
+                return ((string)(this["RightSideBarImage"]));
             }
         }
     }
