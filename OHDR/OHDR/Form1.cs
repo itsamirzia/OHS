@@ -7,7 +7,7 @@ using System.Drawing.Printing;
 using System.Windows.Forms;
 using System.Data;
 using System.Configuration;
-
+using System.Diagnostics;
 
 namespace OHDR
 {
@@ -189,7 +189,7 @@ namespace OHDR
                     PaperSize ps = new PaperSize("Custom", 816, 800);
                     File.WriteAllText("log.txt", "Printable Area\r\nHeight ="+printDocument.DefaultPageSettings.PrintableArea.Height + " Width=" + printDocument.DefaultPageSettings.PrintableArea.Width + " X point=" + printDocument.DefaultPageSettings.PrintableArea.X + " Y point" + printDocument.DefaultPageSettings.PrintableArea.Y+"\r\n");
                     
-                    printDocument.DefaultPageSettings.PaperSize = ps;
+                    //printDocument.DefaultPageSettings.PaperSize = ps;
                     //printDocument.DefaultPageSettings.PaperSize.Width = (int)(100 / 25.4) * 102;
                     //printDocument.DefaultPageSettings.PrintableArea.Height = (float)100;
                     //printDocument.PrinterSettings.PrinterName = "ZDesigner S4M-203dpi ZPL (Copy 1)";
@@ -428,10 +428,10 @@ namespace OHDR
         {
             dt_old.Clear();
             db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email = '" + txtSearchBox1.Text.ToLower().ToString() + "' or EmpCode = '"+ txtSearchBox2.Text.ToLower().ToString() + "'");
-            if (dt_old.Rows.Count > 0)
+            if (dt_old.Rows.Count == 1)
             {
                 panel7.Visible = false;
-                label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = true;
+                label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = true;
 
                 textBox1.Text = dt_old.Rows[0][0].ToString();
                 textBox2.Text = dt_old.Rows[0][1].ToString();
@@ -445,7 +445,12 @@ namespace OHDR
                 return;
             }
             else
-            { MessageBox.Show("Data Not Found."); txtSearchBox1.Text = ""; return; }
+            {
+                MessageBox.Show("No data found. Contact with administrator","Waring",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSearchBox1.Text = "Enter Your Email...";
+                txtSearchBox2.Text = "Enter Your Unique ID...";
+                return;
+            }
 
         }
 
@@ -458,18 +463,65 @@ namespace OHDR
 
         private void txtSearchBox1_Enter(object sender, EventArgs e)
         {
-
+            if (txtSearchBox1.Text == "Enter Your Email...")
+            {
+                {
+                    txtSearchBox1.Text = "";
+                }
+            }
         }
 
         private void txtSearchBox1_Leave(object sender, EventArgs e)
         {
-
+            if (txtSearchBox1.Text == "")
+            {
+                {
+                    txtSearchBox1.Text = "Enter Your Email...";
+                }
+            }
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
             panel7.Visible = true;
-            label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = false;
+            label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
+            txtSearchBox1.Text = "Enter Your Email...";
+            txtSearchBox2.Text = "Enter Your Unique ID...";
+        }
+
+        private void txtSearchBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSearchBox2_Enter(object sender, EventArgs e)
+        {
+            if (txtSearchBox2.Text == "Enter Your Unique ID...")
+            {
+                {
+                    txtSearchBox2.Text = "";
+                }
+            }
+        }
+
+        private void txtSearchBox2_Leave(object sender, EventArgs e)
+        {
+            if (txtSearchBox2.Text == "")
+            {
+                {
+                    txtSearchBox2.Text = "Enter Your Unique ID...";
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process process = Process.Start(new ProcessStartInfo(
+                ((Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\osk.exe"))));
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

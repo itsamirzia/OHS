@@ -132,7 +132,9 @@
             this.txtSearchBox2.Name = "txtSearchBox2";
             this.txtSearchBox2.Size = new System.Drawing.Size(440, 44);
             this.txtSearchBox2.TabIndex = 20;
-            this.txtSearchBox2.Text = "Enter UniqueID...";
+            this.txtSearchBox2.Text = "Enter Your Unique ID...";
+            this.txtSearchBox2.Enter += new System.EventHandler(this.txtSearchBox2_Enter);
+            this.txtSearchBox2.Leave += new System.EventHandler(this.txtSearchBox2_Leave);
             // 
             // label8
             // 
@@ -150,11 +152,13 @@
             this.txtSearchBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchBox1.Location = new System.Drawing.Point(51, 37);
             this.txtSearchBox1.Margin = new System.Windows.Forms.Padding(6);
-            this.txtSearchBox1.Multiline = true;
             this.txtSearchBox1.Name = "txtSearchBox1";
             this.txtSearchBox1.Size = new System.Drawing.Size(440, 44);
             this.txtSearchBox1.TabIndex = 18;
             this.txtSearchBox1.Text = "Enter Your Email...";
+            this.txtSearchBox1.TextChanged += new System.EventHandler(this.txtSearchBox1_TextChanged);
+            this.txtSearchBox1.Enter += new System.EventHandler(this.txtSearchBox1_Enter);
+            this.txtSearchBox1.Leave += new System.EventHandler(this.txtSearchBox1_Leave);
             // 
             // button3
             // 
@@ -182,6 +186,7 @@
             this.button1.TabIndex = 12;
             this.button1.Text = "PRINT";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label7
@@ -198,6 +203,7 @@
             // 
             // textBox6
             // 
+            this.textBox6.Enabled = false;
             this.textBox6.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox6.ForeColor = System.Drawing.Color.Red;
             this.textBox6.Location = new System.Drawing.Point(1220, 356);
@@ -223,6 +229,7 @@
             // 
             // textBox5
             // 
+            this.textBox5.Enabled = false;
             this.textBox5.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox5.ForeColor = System.Drawing.Color.Red;
             this.textBox5.Location = new System.Drawing.Point(288, 356);
@@ -248,6 +255,7 @@
             // 
             // textBox4
             // 
+            this.textBox4.Enabled = false;
             this.textBox4.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.ForeColor = System.Drawing.Color.Red;
             this.textBox4.Location = new System.Drawing.Point(1220, 204);
@@ -272,6 +280,7 @@
             // 
             // textBox3
             // 
+            this.textBox3.Enabled = false;
             this.textBox3.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox3.ForeColor = System.Drawing.Color.Red;
             this.textBox3.Location = new System.Drawing.Point(288, 204);
@@ -297,6 +306,7 @@
             // 
             // textBox2
             // 
+            this.textBox2.Enabled = false;
             this.textBox2.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.Color.Red;
             this.textBox2.Location = new System.Drawing.Point(1220, 62);
@@ -322,6 +332,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.Enabled = false;
             this.textBox1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.Red;
             this.textBox1.Location = new System.Drawing.Point(288, 62);
