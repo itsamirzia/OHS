@@ -31,7 +31,12 @@ namespace OHDR
                                       PRIMARY KEY(`Email`)
                                     ) ENGINE = InnoDB DEFAULT CHARSET = latin1; "))
                 {
-                    Application.Run(new Form1());
+                    admin objA = new admin();
+                    objA.ShowDialog();
+                    if (objA.isclose)
+                    {
+                        Application.Run(new Form2());
+                    }
                 }
                 else
                 {

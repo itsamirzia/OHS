@@ -30,7 +30,6 @@ namespace OHDR
     
     public partial class Form1 : Form
     {
-        private System.Windows.Forms.Button printButton;
         private Font printFont;
         private Font printFontVisitor;
         public bool isOld = false;
@@ -72,10 +71,10 @@ namespace OHDR
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            
+            MainPanelLebel.Text = Properties.Settings.Default.MainPanelLebel.ToUpper();
             panel3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.HeaderImage);
             panel2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.OrganisedByImage);
-            button1.BackColor = button3.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor =  Properties.Settings.Default.ThemeColor;// "#9E2065";
+            button1.BackColor = button4.BackColor = button3.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor =  Properties.Settings.Default.ThemeColor;// "#9E2065";
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -208,7 +207,9 @@ namespace OHDR
                     dt_old.Rows[0][3].ToString().ToUpper() == textBox4.Text.ToString().ToUpper() &&
                     dt_old.Rows[0][4].ToString().ToUpper() == textBox5.Text.ToString().ToUpper() &&
                     dt_old.Rows[0][5].ToString().ToUpper() == textBox6.Text.ToString().ToUpper())
-                { }
+                {
+                    db.ExecuteSQLQuery(ref db.conn, "update register set Registered_Time=now() where Email='" + textBox6.Text.ToString().ToLower() + "'");
+                }
                 else
                 {
                     db.ExecuteSQLQuery(ref db.conn, "update register set fname='" + textBox1.Text.ToString().ToUpper() + "',lname='" + textBox2.Text.ToString().ToUpper() + "',Designation='" + textBox3.Text.ToString().ToUpper() + "', Company='" + textBox4.Text.ToString().ToUpper() + "', Mobile='" + textBox5.Text.ToString().ToUpper() + "', Registered_Time=now() where Email='" + textBox6.Text.ToString().ToLower() + "'");
@@ -216,8 +217,8 @@ namespace OHDR
                 }
             }
             textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
-            panel7.Visible = true;
-            isOld = label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
+            panel7.Visible = button4.Visible = true;
+            isOld = MainPanelLebel.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
             txtSearchBox1.Text = "Enter Your Email...";
             txtSearchBox2.Text = "Enter Your Unique ID...";
         }
@@ -394,8 +395,8 @@ namespace OHDR
             db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email = '" + txtSearchBox1.Text.ToLower().ToString() + "' or EmpCode = '"+ txtSearchBox2.Text.ToLower().ToString() + "'");
             if (dt_old.Rows.Count == 1)
             {
-                panel7.Visible = false;
-                label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = true;
+                panel7.Visible = button4.Visible = false;
+                MainPanelLebel.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = true;
 
                 textBox1.Text = dt_old.Rows[0][0].ToString();
                 textBox2.Text = dt_old.Rows[0][1].ToString();
@@ -447,8 +448,8 @@ namespace OHDR
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            panel7.Visible = true;
-            label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
+            panel7.Visible = button4.Visible = true;
+            MainPanelLebel.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
             txtSearchBox1.Text = "Enter Your Email...";
             txtSearchBox2.Text = "Enter Your Unique ID...";
         }

@@ -23,12 +23,13 @@ namespace OHDR
         private void button1_Click(object sender, EventArgs e)
         {
 
-            if ((textBox1.Text.ToString().ToUpper() == "SHAARIQUE") && (textBox2.Text.ToString() == "SHA123"))
+            if ((textBox1.Text.ToString().ToUpper() == "") && (textBox2.Text.ToString() == ""))
             {
                 isclose = true;
             }
             else
             { isclose = false; }
+
 
             this.Close();
         }

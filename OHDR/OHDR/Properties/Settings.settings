@@ -2,56 +2,59 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OHDR.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="TextArea" Type="System.String" Scope="Application">
+    <Setting Name="TextArea" Type="System.String" Scope="User">
       <Value Profile="(Default)">2,35,98,25</Value>
     </Setting>
-    <Setting Name="BarcodeArea" Type="System.String" Scope="Application">
+    <Setting Name="BarcodeArea" Type="System.String" Scope="User">
       <Value Profile="(Default)">2,65,98,10</Value>
     </Setting>
-    <Setting Name="BadgeArea" Type="System.String" Scope="Application">
+    <Setting Name="BadgeArea" Type="System.String" Scope="User">
       <Value Profile="(Default)">2,80,98,15</Value>
     </Setting>
-    <Setting Name="TearTime" Type="System.Int32" Scope="Application">
+    <Setting Name="TearTime" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
-    <Setting Name="PanelLogoSize" Type="System.String" Scope="Application">
+    <Setting Name="PanelHeaderSize" Type="System.String" Scope="User">
       <Value Profile="(Default)">336,150</Value>
     </Setting>
-    <Setting Name="PanelOrganisedSize" Type="System.String" Scope="Application">
+    <Setting Name="PanelOrganisedSize" Type="System.String" Scope="User">
       <Value Profile="(Default)">186, 118</Value>
     </Setting>
-    <Setting Name="ThemeColor" Type="System.Drawing.Color" Scope="Application">
-      <Value Profile="(Default)">158, 32, 101</Value>
+    <Setting Name="ThemeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">0, 6, 76</Value>
     </Setting>
-    <Setting Name="RegistrationType" Type="System.String" Scope="Application">
+    <Setting Name="RegistrationType" Type="System.String" Scope="User">
       <Value Profile="(Default)">Visitor</Value>
     </Setting>
-    <Setting Name="PrefixCustomerCode" Type="System.String" Scope="Application">
+    <Setting Name="PrefixCustomerCode" Type="System.String" Scope="User">
       <Value Profile="(Default)">EVE</Value>
     </Setting>
-    <Setting Name="EnableSearch" Type="System.Boolean" Scope="Application">
+    <Setting Name="EnableSearch" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="PrintBarcode" Type="System.Boolean" Scope="Application">
+    <Setting Name="PrintBarcode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="HeaderImage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">header.png</Value>
+    <Setting Name="HeaderImage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">banner.png</Value>
     </Setting>
-    <Setting Name="OrganisedByImage" Type="System.String" Scope="Application">
+    <Setting Name="OrganisedByImage" Type="System.String" Scope="User">
       <Value Profile="(Default)">organisedby.jpg</Value>
     </Setting>
-    <Setting Name="IconName" Type="System.String" Scope="Application">
+    <Setting Name="IconName" Type="System.String" Scope="User">
       <Value Profile="(Default)">FHO.ico</Value>
     </Setting>
-    <Setting Name="EnableSideBanner" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="EnableSideBanner" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="LeftSideBarImage" Type="System.String" Scope="Application">
+    <Setting Name="LeftSideBarImage" Type="System.String" Scope="User">
       <Value Profile="(Default)">sideBanner.gif</Value>
     </Setting>
-    <Setting Name="RightSideBarImage" Type="System.String" Scope="Application">
+    <Setting Name="RightSideBarImage" Type="System.String" Scope="User">
       <Value Profile="(Default)">sideBanner.gif</Value>
+    </Setting>
+    <Setting Name="MainPanelLebel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PLEASE CONFIRM BEFORE PRINT</Value>
     </Setting>
   </Settings>
 </SettingsFile>
