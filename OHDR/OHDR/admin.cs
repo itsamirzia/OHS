@@ -23,7 +23,7 @@ namespace OHDR
         private void button1_Click(object sender, EventArgs e)
         {
 
-            if ((textBox1.Text.ToString().ToUpper() == "") && (textBox2.Text.ToString() == ""))
+            if (((textBox1.Text.ToString().ToUpper() == "SHAARIQUE") && (textBox2.Text.ToString() == "oe123")) || ((textBox1.Text.ToString().ToUpper() == "ADMIN") && (textBox2.Text.ToString() == "admin123")))
             {
                 isclose = true;
             }

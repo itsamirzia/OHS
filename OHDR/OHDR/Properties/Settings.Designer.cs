@@ -238,5 +238,89 @@ namespace OHDR.Properties {
                 this["MainPanelLebel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public string BackgroundImage {
+            get {
+                return ((string)(this["BackgroundImage"]));
+            }
+            set {
+                this["BackgroundImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayBGImage {
+            get {
+                return ((bool)(this["DisplayBGImage"]));
+            }
+            set {
+                this["DisplayBGImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Badge already printed. Contact to administrator.")]
+        public string BadgeText {
+            get {
+                return ((string)(this["BadgeText"]));
+            }
+            set {
+                this["BadgeText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ENTER YOUR EMAIL...")]
+        public string EmailSearchText {
+            get {
+                return ((string)(this["EmailSearchText"]));
+            }
+            set {
+                this["EmailSearchText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ENTER YOUR UNIQUE ID...")]
+        public string UniqueIDSearchText {
+            get {
+                return ((string)(this["UniqueIDSearchText"]));
+            }
+            set {
+                this["UniqueIDSearchText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("tearWindow.jpg")]
+        public string TearWindowImage {
+            get {
+                return ((string)(this["TearWindowImage"]));
+            }
+            set {
+                this["TearWindowImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableKeyboardButton {
+            get {
+                return ((bool)(this["EnableKeyboardButton"]));
+            }
+            set {
+                this["EnableKeyboardButton"] = value;
+            }
+        }
     }
 }

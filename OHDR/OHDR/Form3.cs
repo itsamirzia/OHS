@@ -28,6 +28,7 @@ namespace OHDR
         {
             Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + Properties.Settings.Default.IconName);
             this.Icon = icon;
+            panel1.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.TearWindowImage);
             label1.ForeColor=label2.ForeColor = Properties.Settings.Default.ThemeColor;
         }
         public void Closeme()

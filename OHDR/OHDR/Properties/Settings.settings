@@ -56,5 +56,26 @@
     <Setting Name="MainPanelLebel" Type="System.String" Scope="User">
       <Value Profile="(Default)">PLEASE CONFIRM BEFORE PRINT</Value>
     </Setting>
+    <Setting Name="BackgroundImage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="DisplayBGImage" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="BadgeText" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Badge already printed. Contact to administrator.</Value>
+    </Setting>
+    <Setting Name="EmailSearchText" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ENTER YOUR EMAIL...</Value>
+    </Setting>
+    <Setting Name="UniqueIDSearchText" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ENTER YOUR UNIQUE ID...</Value>
+    </Setting>
+    <Setting Name="TearWindowImage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tearWindow.jpg</Value>
+    </Setting>
+    <Setting Name="EnableKeyboardButton" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
