@@ -28,10 +28,16 @@ namespace OHDR
                                       `Registered_Time` varchar(45) NOT NULL DEFAULT '',
                                       `Registration_Type` varchar(45) NOT NULL DEFAULT '',
                                       `EmpCode` varchar(45) NOT NULL,
+                                      `IsPrinted` varchar(50) NOT NULL,
                                       PRIMARY KEY(`Email`)
                                     ) ENGINE = InnoDB DEFAULT CHARSET = latin1; "))
                 {
-                    Application.Run(new Form1());
+                    admin objA = new admin();
+                    objA.ShowDialog();
+                    if (objA.isclose)
+                    {
+                        Application.Run(new Form2());
+                    }
                 }
                 else
                 {

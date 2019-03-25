@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Configuration;
 using System.Diagnostics;
+using System.Linq;
 
 namespace OHDR
 {
@@ -30,9 +31,6 @@ namespace OHDR
     
     public partial class Form1 : Form
     {
-        private System.Windows.Forms.Button printButton;
-        private Font printFont;
-        private Font printFontVisitor;
         public bool isOld = false;
         public static bool IsVisible;
         public static string Registration_Type = Properties.Settings.Default.RegistrationType.ToString().ToUpper();
@@ -60,9 +58,37 @@ namespace OHDR
             g.DrawPath(p, gp);
             gp.Dispose();
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SYSCOMMAND = 0x0112;
+            const int SC_MOVE = 0xF010;
+
+            switch (m.Msg)
+            {
+                case WM_SYSCOMMAND:
+                    int command = m.WParam.ToInt32() & 0xfff0;
+                    if (command == SC_MOVE)
+                        return;
+                    break;
+            }
+            base.WndProc(ref m);
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            panel7.Anchor = AnchorStyles.None;
+            if (Properties.Settings.Default.DisplayBGImage)
+            {
+                this.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.BackgroundImage);
+                foreach (Panel p in Controls.OfType<Panel>())
+                    foreach (Label l in p.Controls.OfType<Label>())
+                        l.ForeColor = Color.White;
+
+            }
+
+            button4.Visible = button4.Enabled = Properties.Settings.Default.EnableKeyboardButton;
+            
+            Taskbar.Hide();
             Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + Properties.Settings.Default.IconName);
             this.Icon = icon;
             if (Properties.Settings.Default.EnableSideBanner)
@@ -72,10 +98,12 @@ namespace OHDR
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            
+            txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+            txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
+            MainPanelLebel.Text = Properties.Settings.Default.MainPanelLebel.ToUpper();
             panel3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.HeaderImage);
-            panel2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.OrganisedByImage);
-            button1.BackColor = button3.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor =  Properties.Settings.Default.ThemeColor;// "#9E2065";
+            //panel2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.OrganisedByImage);
+            button1.BackColor = button4.BackColor = button3.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor =  Properties.Settings.Default.ThemeColor;// "#9E2065";
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -158,44 +186,13 @@ namespace OHDR
                 }
             }
 
-            try
-            {
-                printFont = new Font("Arial", 12, FontStyle.Bold);
-                printFontVisitor = new Font("Arial Black", 36, FontStyle.Bold);
-                PrintDocument printDocument = new PrintDocument();
+            BadgePrinter.barcode = barcode;
+            BadgePrinter.nameDesignationCompany = textBox1.Text + " " + textBox2.Text + Environment.NewLine + Environment.NewLine
+                + textBox3.Text + Environment.NewLine + Environment.NewLine
+                + textBox4.Text + Environment.NewLine + Environment.NewLine;
+            BadgePrinter.registrationType = Registration_Type;
+            BadgePrinter.PrintBadges();
 
-                // We ALWAYS want true here, as we will implement the 
-                // margin limitations later in code.
-                //printDocument.OriginAtMargins = true;
-                // printDocument.DefaultPageSettings.Margins(100, 100, 100, 100);
-                printDocument.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
-
-                // Set some preferences, our method should print a box with any 
-                // combination of these properties being true/false.
-                printDocument.DefaultPageSettings.Landscape = false;
-
-                //printDocument.DefaultPageSettings.PrintableArea.Height = 400;
-                //PaperSize ps = new PaperSize("Custom", 816, 800);
-                    
-                    
-                //printDocument.DefaultPageSettings.PaperSize = ps;
-                //printDocument.DefaultPageSettings.PaperSize.Width = (int)(100 / 25.4) * 102;
-                //printDocument.DefaultPageSettings.PrintableArea.Height = (float)100;
-                //printDocument.PrinterSettings.PrinterName = "ZDesigner S4M-203dpi ZPL (Copy 1)";
-                printDocument.PrintPage += new PrintPageEventHandler
-                    (this.pd_PrintPage);
-
-                //PrintController printController = new StandardPrintController();
-                //printDocument.PrintController = printController;
-                // printPreviewDialog1.Document = printDocument;
-                // printPreviewDialog1.ShowDialog();
-                printDocument.Print();
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
             Form3 f3 = new Form3();
             f3.doenable();
             f3.ShowDialog();
@@ -208,60 +205,21 @@ namespace OHDR
                     dt_old.Rows[0][3].ToString().ToUpper() == textBox4.Text.ToString().ToUpper() &&
                     dt_old.Rows[0][4].ToString().ToUpper() == textBox5.Text.ToString().ToUpper() &&
                     dt_old.Rows[0][5].ToString().ToUpper() == textBox6.Text.ToString().ToUpper())
-                { }
+                {
+                    db.ExecuteSQLQuery(ref db.conn, "update register set Registered_Time=now(), IsPrinted='YES' where EmpCode='" + dt_old.Rows[0]["EmpCode"].ToString() + "'");
+                }
                 else
                 {
-                    db.ExecuteSQLQuery(ref db.conn, "update register set fname='" + textBox1.Text.ToString().ToUpper() + "',lname='" + textBox2.Text.ToString().ToUpper() + "',Designation='" + textBox3.Text.ToString().ToUpper() + "', Company='" + textBox4.Text.ToString().ToUpper() + "', Mobile='" + textBox5.Text.ToString().ToUpper() + "', Registered_Time=now() where Email='" + textBox6.Text.ToString().ToLower() + "'");
+                    db.ExecuteSQLQuery(ref db.conn, "update register set fname='" + textBox1.Text.ToString().ToUpper() + "',lname='" + textBox2.Text.ToString().ToUpper() + "',Designation='" + textBox3.Text.ToString().ToUpper() + "', Company='" + textBox4.Text.ToString().ToUpper() + "', Mobile='" + textBox5.Text.ToString().ToUpper() + "', Registered_Time=now(), IsPrinted='YES' where Email='" + textBox6.Text.ToString().ToLower() + "'");
                     isOld = false;
                 }
             }
             textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
-            panel7.Visible = true;
-            isOld = label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
-            txtSearchBox1.Text = "Enter Your Email...";
-            txtSearchBox2.Text = "Enter Your Unique ID...";
-        }
-        private void pd_PrintPage(object sender, PrintPageEventArgs ev)
-        {
-            ev.Graphics.PageUnit = GraphicsUnit.Millimeter;
-            string[] display1 = Properties.Settings.Default.TextArea.Split(',');
-            Rectangle displayRectangle =
-            new Rectangle(Convert.ToInt32(display1[0]), Convert.ToInt32(display1[1]), Convert.ToInt32(display1[2]), Convert.ToInt32(display1[3]));
-            
-            string[] display2 = Properties.Settings.Default.BadgeArea.Split(',');
-            Rectangle displayRectangle2 =
-            new Rectangle(Convert.ToInt32(display2[0]), Convert.ToInt32(display2[1]), Convert.ToInt32(display2[2]), Convert.ToInt32(display2[3]));
-
-            StringFormat format1 = new StringFormat(StringFormatFlags.NoClip);
-            format1.Alignment = StringAlignment.Center;
-            format1.LineAlignment = StringAlignment.Center;
-
-            if (Properties.Settings.Default.PrintBarcode)
-            {
-                Bitmap bitm = new Bitmap(barcode.Length * 5, 20);
-                using (Graphics graphic = Graphics.FromImage(bitm))
-                {
-
-                    string[] display3 = Properties.Settings.Default.BarcodeArea.Split(',');
-                    Rectangle displayBarcode =
-                                    new Rectangle(Convert.ToInt32(display3[0]), Convert.ToInt32(display3[1]), Convert.ToInt32(display3[2]), Convert.ToInt32(display3[3]));
-
-                    Font newfont = new Font("IDAutomationHC39M", 16);
-                    PointF point = new PointF(2f, 2f);
-                    SolidBrush black = new SolidBrush(Color.Black);
-                    SolidBrush white = new SolidBrush(Color.White);
-                    ev.Graphics.FillRectangle(white, 0, 0, bitm.Width / 2, bitm.Height);
-                    ev.Graphics.DrawString("*" + barcode + "*", newfont, black, displayBarcode, format1);
-                }
-            }
-
-            string nameDesignationCompany = textBox1.Text + " " + textBox2.Text + Environment.NewLine + Environment.NewLine
-                +textBox3.Text + Environment.NewLine + Environment.NewLine
-                +textBox4.Text + Environment.NewLine + Environment.NewLine;
-
-            ev.Graphics.DrawString(nameDesignationCompany, printFont, Brushes.Black, displayRectangle, format1);
-            ev.Graphics.DrawString(Registration_Type, printFontVisitor, Brushes.Black,displayRectangle2, format1);
-            ev.HasMorePages = false;
+            panel7.Visible  = true;
+            button4.Visible = button4.Enabled = Properties.Settings.Default.EnableKeyboardButton;
+            isOld = MainPanelLebel.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
+            txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+            txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
         }
 
 
@@ -315,7 +273,13 @@ namespace OHDR
             admin a = new admin();
             a.ShowDialog();
             if (!a.isclose)
-            { e.Cancel = true; }
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                Taskbar.Show();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -391,11 +355,23 @@ namespace OHDR
         private void button3_Click(object sender, EventArgs e)
         {
             dt_old.Clear();
+            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where (email = '" + txtSearchBox1.Text.ToLower().ToString() + "' or EmpCode = '" + txtSearchBox2.Text.ToLower().ToString() + "') and IsPrinted='YES'");
+            if (dt_old.Rows.Count > 0)
+            {
+                MessageBox.Show(Properties.Settings.Default.BadgeText,"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+                txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
+                return;
+            }
+            else
+            {
+                dt_old = null;
+            }
             db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email = '" + txtSearchBox1.Text.ToLower().ToString() + "' or EmpCode = '"+ txtSearchBox2.Text.ToLower().ToString() + "'");
             if (dt_old.Rows.Count == 1)
             {
-                panel7.Visible = false;
-                label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = true;
+                panel7.Visible = button4.Visible = false;
+                MainPanelLebel.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = true;
 
                 textBox1.Text = dt_old.Rows[0][0].ToString();
                 textBox2.Text = dt_old.Rows[0][1].ToString();
@@ -411,8 +387,8 @@ namespace OHDR
             else
             {
                 MessageBox.Show("No data found. Contact with administrator","Waring",MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtSearchBox1.Text = "Enter Your Email...";
-                txtSearchBox2.Text = "Enter Your Unique ID...";
+                txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+                txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
                 return;
             }
 
@@ -427,7 +403,7 @@ namespace OHDR
 
         private void txtSearchBox1_Enter(object sender, EventArgs e)
         {
-            if (txtSearchBox1.Text == "Enter Your Email...")
+            if (txtSearchBox1.Text == Properties.Settings.Default.EmailSearchText)
             {
                 {
                     txtSearchBox1.Text = "";
@@ -440,7 +416,7 @@ namespace OHDR
             if (txtSearchBox1.Text == "")
             {
                 {
-                    txtSearchBox1.Text = "Enter Your Email...";
+                    txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
                 }
             }
         }
@@ -448,9 +424,10 @@ namespace OHDR
         private void button2_Click_1(object sender, EventArgs e)
         {
             panel7.Visible = true;
-            label1.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
-            txtSearchBox1.Text = "Enter Your Email...";
-            txtSearchBox2.Text = "Enter Your Unique ID...";
+            button4.Visible = Properties.Settings.Default.EnableKeyboardButton;
+            MainPanelLebel.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
+            txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+            txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
         }
 
         private void txtSearchBox1_TextChanged(object sender, EventArgs e)
@@ -460,7 +437,7 @@ namespace OHDR
 
         private void txtSearchBox2_Enter(object sender, EventArgs e)
         {
-            if (txtSearchBox2.Text == "Enter Your Unique ID...")
+            if (txtSearchBox2.Text == Properties.Settings.Default.UniqueIDSearchText)
             {
                 {
                     txtSearchBox2.Text = "";
@@ -473,7 +450,7 @@ namespace OHDR
             if (txtSearchBox2.Text == "")
             {
                 {
-                    txtSearchBox2.Text = "Enter Your Unique ID...";
+                    txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
                 }
             }
         }
@@ -482,10 +459,26 @@ namespace OHDR
         {
             try
             {
-                Process process = Process.Start(new ProcessStartInfo(
-                ((Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\osk.exe"))));
+                var path64 = @"C:\Windows\winsxs\amd64_microsoft-windows-osk_31bf3856ad364e35_6.1.7600.16385_none_06b1c513739fb828\osk.exe";
+                var path32 = @"C:\windows\system32\osk.exe";
+                var path = (Environment.Is64BitOperatingSystem) ? path64 : path32;
+                Process.Start(path);
+
+                
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception)
+            {
+                try
+                {
+                    Process process = Process.Start(new ProcessStartInfo(
+                ((Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\osk.exe"))));
+                }
+                catch (Exception ex2)
+                {
+
+                    MessageBox.Show(ex2.Message);
+                }
+            }
         }
     }
 }
