@@ -1,14 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.64
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHDR", "OHDR\OHDR.csproj", "{6C0E7FB6-87AE-4BC3-A3AC-F6F9054924A6}"
 EndProject
-Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "OHS", "OHS\OHS.isproj", "{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6C0E7FB6-87AE-4BC3-A3AC-F6F9054924A6} = {6C0E7FB6-87AE-4BC3-A3AC-F6F9054924A6}
-	EndProjectSection
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "VRSetup", "VRSetup\VRSetup.vdproj", "{67B41027-86E3-41A9-A855-5F877C64690B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,16 +26,12 @@ Global
 		{6C0E7FB6-87AE-4BC3-A3AC-F6F9054924A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6C0E7FB6-87AE-4BC3-A3AC-F6F9054924A6}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{6C0E7FB6-87AE-4BC3-A3AC-F6F9054924A6}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}.CD_ROM|Any CPU.ActiveCfg = CD_ROM
-		{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}.CD_ROM|Any CPU.Build.0 = CD_ROM
-		{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}.Debug|Any CPU.ActiveCfg = DVD-5
-		{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}.Debug|Any CPU.Build.0 = DVD-5
-		{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}.DVD-5|Any CPU.ActiveCfg = DVD-5
-		{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}.DVD-5|Any CPU.Build.0 = DVD-5
-		{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}.Release|Any CPU.ActiveCfg = SingleImage
-		{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}.Release|Any CPU.Build.0 = SingleImage
-		{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}.SingleImage|Any CPU.ActiveCfg = SingleImage
-		{8E1FE0ED-2B1B-4B1B-9D9B-8B2D89FB6548}.SingleImage|Any CPU.Build.0 = SingleImage
+		{67B41027-86E3-41A9-A855-5F877C64690B}.CD_ROM|Any CPU.ActiveCfg = Release
+		{67B41027-86E3-41A9-A855-5F877C64690B}.Debug|Any CPU.ActiveCfg = Debug
+		{67B41027-86E3-41A9-A855-5F877C64690B}.DVD-5|Any CPU.ActiveCfg = Debug
+		{67B41027-86E3-41A9-A855-5F877C64690B}.Release|Any CPU.ActiveCfg = Release
+		{67B41027-86E3-41A9-A855-5F877C64690B}.Release|Any CPU.Build.0 = Release
+		{67B41027-86E3-41A9-A855-5F877C64690B}.SingleImage|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

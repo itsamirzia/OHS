@@ -7,7 +7,8 @@ using System.Drawing.Printing;
 using System.Windows.Forms;
 using System.Data;
 using System.Configuration;
-
+using System.Diagnostics;
+using System.Linq;
 
 namespace OHDR
 {
@@ -27,19 +28,18 @@ namespace OHDR
     //    // you will also need to add any appropriate class ctor
     //    // experiment with the PrintDocument class to learn more
     //}
+    
     public partial class Form1 : Form
     {
-        private System.ComponentModel.Container components;
-        private System.Windows.Forms.Button printButton;
-        private Font printFont;
-        private Font printFontVisitor;
-        private StreamReader streamToPrint;
         public bool isOld = false;
-        public static string Registration_Type = ConfigurationManager.AppSettings["Registration_Type"].ToString().ToUpper();
+        public static bool IsVisible;
+        public static string Registration_Type = Properties.Settings.Default.RegistrationType.ToString().ToUpper();
         public static DataTable dt_old = new DataTable();
         //public static MySqlConnection conn = new MySqlConnection("datasource=localhost;database=omanexpoevents;user id=root;password='';allow zero datetime=true");
+
+
         public Form1()
-        {
+        {            
             InitializeComponent();
         }
 
@@ -58,25 +58,64 @@ namespace OHDR
             g.DrawPath(p, gp);
             gp.Dispose();
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SYSCOMMAND = 0x0112;
+            const int SC_MOVE = 0xF010;
+
+            switch (m.Msg)
+            {
+                case WM_SYSCOMMAND:
+                    int command = m.WParam.ToInt32() & 0xfff0;
+                    if (command == SC_MOVE)
+                        return;
+                    break;
+            }
+            base.WndProc(ref m);
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            panel7.Anchor = AnchorStyles.None;
+            if (Properties.Settings.Default.DisplayBGImage)
+            {
+                this.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.BackgroundImage);
+                foreach (Panel p in Controls.OfType<Panel>())
+                    foreach (Label l in p.Controls.OfType<Label>())
+                        l.ForeColor = Color.White;
 
+            }
+
+            button4.Visible = button4.Enabled = Properties.Settings.Default.EnableKeyboardButton;
+            
+            Taskbar.Hide();
+            Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + Properties.Settings.Default.IconName);
+            this.Icon = icon;
+            if (Properties.Settings.Default.EnableSideBanner)
+            {
+                pictureBox1.Image = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.LeftSideBarImage);
+                pictureBox2.Image = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.RightSideBarImage);
+                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+            txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
+            MainPanelLebel.Text = Properties.Settings.Default.MainPanelLebel.ToUpper();
+            panel3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.HeaderImage);
+            //panel2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.OrganisedByImage);
+            button1.BackColor = button4.BackColor = button3.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor =  Properties.Settings.Default.ThemeColor;// "#9E2065";
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            //Graphics v = e.Graphics;
-            //DrawRoundRect(v, Pens.Red, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
-            ////Without rounded corners
-            ////e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-            //base.OnPaint(e);
+            
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
             Graphics v = e.Graphics;
-            DrawRoundRect(v, Pens.Red, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
+            Pen p = new Pen(Properties.Settings.Default.ThemeColor);
+            DrawRoundRect(v, p, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
             //Without rounded corners
             //e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
             base.OnPaint(e);
@@ -84,11 +123,6 @@ namespace OHDR
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-            //Graphics v = e.Graphics;
-            //DrawRoundRect(v, Pens.Red, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1, 10);
-            ////Without rounded corners
-            ////e.Graphics.DrawRectangle(Pens.Blue, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-            //base.OnPaint(e);
         }
 
         private void panel4_Paint(object sender, PaintEventArgs e)
@@ -104,9 +138,65 @@ namespace OHDR
         {
 
         }
-
+        public string barcode;
         private void button1_Click(object sender, EventArgs e)
         {
+           
+            if (!isOld)
+            {
+                if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "")
+                {
+                    MessageBox.Show("All details are mendatory.");
+                    return;
+                }
+
+                dt_old.Clear();
+            
+                db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '"+textBox6.Text.ToLower().ToString()+"'");
+                if (dt_old.Rows.Count > 0)
+                {
+                    DialogResult result = MessageBox.Show("Would you like to continue with old data.", "Your Detail is alredy present with us.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (result.ToString().ToUpper()=="YES")
+                    {
+                        textBox1.Text = dt_old.Rows[0][0].ToString();
+                        textBox2.Text = dt_old.Rows[0][1].ToString();
+                        textBox3.Text = dt_old.Rows[0][2].ToString();
+                        textBox4.Text = dt_old.Rows[0][3].ToString();
+                        isOld = true;
+                        barcode = dt_old.Rows[0][8].ToString();
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                DataTable dtMaxNumber = new DataTable();
+                db.SQLQuery(ref db.conn, ref dtMaxNumber, "SELECT concat('"+Properties.Settings.Default.PrefixCustomerCode+ "',max(cast(substring_index(empcode,'" + Properties.Settings.Default.PrefixCustomerCode + "',-1) as unsigned))+1) NextRegister FROM `register` where EmpCode regexp 'OHS'");
+
+                if (dtMaxNumber.Rows.Count > 0)
+                    barcode = dtMaxNumber.Rows[0][0].ToString();
+                else
+                    barcode = Properties.Settings.Default.PrefixCustomerCode+"101";
+
+                if (!db.ExecuteSQLQuery(ref db.conn, "insert into register values ('" + textBox1.Text.ToString().ToUpper() + "','" + textBox2.Text.ToString().ToUpper() + "','" + textBox3.Text.ToString().ToUpper() + "','" + textBox4.Text.ToString().ToUpper() + "','" + textBox5.Text.ToString().ToUpper() + "','" + textBox6.Text.ToString().ToLower() + "',now(),'" + Registration_Type + "','"+dtMaxNumber.Rows[0][0]+"')"))
+                {
+                    MessageBox.Show("Kindly check your DB configuration or your DB server is down");
+                    return;
+                }
+            }
+
+            BadgePrinter.barcode = barcode;
+            BadgePrinter.nameDesignationCompany = textBox1.Text + " " + textBox2.Text + Environment.NewLine + Environment.NewLine
+                + textBox3.Text + Environment.NewLine + Environment.NewLine
+                + textBox4.Text + Environment.NewLine + Environment.NewLine;
+            BadgePrinter.registrationType = Registration_Type;
+            BadgePrinter.PrintBadges();
+
+            Form3 f3 = new Form3();
+            f3.doenable();
+            f3.ShowDialog();
+            
             if (dt_old.Rows.Count > 0)
             {
                 if (dt_old.Rows[0][0].ToString().ToUpper() == textBox1.Text.ToString().ToUpper() &&
@@ -115,135 +205,22 @@ namespace OHDR
                     dt_old.Rows[0][3].ToString().ToUpper() == textBox4.Text.ToString().ToUpper() &&
                     dt_old.Rows[0][4].ToString().ToUpper() == textBox5.Text.ToString().ToUpper() &&
                     dt_old.Rows[0][5].ToString().ToUpper() == textBox6.Text.ToString().ToUpper())
-                { }
-                else
-                { isOld = false; }
-            }
-            if (!isOld)
-            {
-                if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "")
-            { MessageBox.Show("All details are mendatory."); return; }
-
-                dt_old.Clear();
-            
-            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '"+textBox6.Text.ToLower().ToString()+"'");
-            if (dt_old.Rows.Count > 0)
-            {
-                DialogResult result = MessageBox.Show("Would you like to continue with old data.", "Your Detail is alredy present with us.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (result.ToString().ToUpper()=="YES")
                 {
-                    textBox1.Text = dt_old.Rows[0][0].ToString();
-                    textBox2.Text = dt_old.Rows[0][1].ToString();
-                    textBox3.Text = dt_old.Rows[0][2].ToString();
-                    textBox4.Text = dt_old.Rows[0][3].ToString();
-                    isOld = true;
-                    return;
+                    db.ExecuteSQLQuery(ref db.conn, "update register set Registered_Time=now(), IsPrinted='YES' where EmpCode='" + dt_old.Rows[0]["EmpCode"].ToString() + "'");
                 }
                 else
-                { MessageBox.Show("To replace your old. Contact with the administrator."); return; }
-            }
-            
-                if (!db.ExecuteSQLQuery(ref db.conn, "insert into register values ('" + textBox1.Text.ToString().ToUpper() + "','" + textBox2.Text.ToString().ToUpper() + "','" + textBox3.Text.ToString().ToUpper() + "','" + textBox4.Text.ToString().ToUpper() + "','" + textBox5.Text.ToString().ToUpper() + "','" + textBox6.Text.ToString().ToLower() + "',now(),'" + Registration_Type + "')"))
                 {
-                    MessageBox.Show("Kindly check your DB configuration or your DB server is down");
-                    return;
+                    db.ExecuteSQLQuery(ref db.conn, "update register set fname='" + textBox1.Text.ToString().ToUpper() + "',lname='" + textBox2.Text.ToString().ToUpper() + "',Designation='" + textBox3.Text.ToString().ToUpper() + "', Company='" + textBox4.Text.ToString().ToUpper() + "', Mobile='" + textBox5.Text.ToString().ToUpper() + "', Registered_Time=now(), IsPrinted='YES' where Email='" + textBox6.Text.ToString().ToLower() + "'");
+                    isOld = false;
                 }
             }
-
-            try
-            {
-                if (File.Exists("Temp.txt"))
-                {
-                    File.Delete("Temp.txt");
-                   
-                }
-                File.WriteAllText("Temp.txt", textBox1.Text.ToUpper() + "  " + textBox2.Text.ToUpper() + "\r\n" + textBox3.Text.ToUpper() + "\r\n" + textBox4.Text.ToUpper());
-
-                
-                    
-                streamToPrint = new StreamReader("Temp.txt");
-                try
-                {
-                    printFont = new Font("Arial", 12, FontStyle.Bold);
-                    printFontVisitor = new Font("Arial Black", 36, FontStyle.Bold);
-                    PrintDocument printDocument = new PrintDocument();
-
-                    // We ALWAYS want true here, as we will implement the 
-                    // margin limitations later in code.
-                    //printDocument.OriginAtMargins = true;
-                    // printDocument.DefaultPageSettings.Margins(100, 100, 100, 100);
-                    printDocument.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
-                    // Set some preferences, our method should print a box with any 
-                    // combination of these properties being true/false.
-                    printDocument.DefaultPageSettings.Landscape = false;
-                    //printDocument.DefaultPageSettings.PrintableArea.Height = 400;
-                    PaperSize ps = new PaperSize("Custom", 816, 800);
-                    File.WriteAllText("log.txt", "Printable Area\r\nHeight ="+printDocument.DefaultPageSettings.PrintableArea.Height + " Width=" + printDocument.DefaultPageSettings.PrintableArea.Width + " X point=" + printDocument.DefaultPageSettings.PrintableArea.X + " Y point" + printDocument.DefaultPageSettings.PrintableArea.Y+"\r\n");
-                    
-                    printDocument.DefaultPageSettings.PaperSize = ps;
-                    //printDocument.DefaultPageSettings.PaperSize.Width = (int)(100 / 25.4) * 102;
-                    //printDocument.DefaultPageSettings.PrintableArea.Height = (float)100;
-                    //printDocument.PrinterSettings.PrinterName = "ZDesigner S4M-203dpi ZPL (Copy 1)";
-                    printDocument.PrintPage += new PrintPageEventHandler
-                       (this.pd_PrintPage);
-                    printDocument.Print();
-                }
-                finally
-                {
-                    streamToPrint.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            MessageBox.Show("Thank you for the registration");
             textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
-            isOld = false;
-            // MySqlConnection conn = new MySqlConnection(ConfigurationManager.AppSettings["conn"].ToString());
-
+            panel7.Visible  = true;
+            button4.Visible = button4.Enabled = Properties.Settings.Default.EnableKeyboardButton;
+            isOld = MainPanelLebel.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
+            txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+            txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
         }
-        private void pd_PrintPage(object sender, PrintPageEventArgs ev)
-        {
-            ev.Graphics.PageUnit = GraphicsUnit.Millimeter;
-            float linesPerPage = 3;
-
-            int count = 0;
-
-            string line = null;
-            Rectangle displayRectangle =
-            new Rectangle(2,35,98,30);
-            File.AppendAllText("log.txt", "displayRectangle Area\r\nHeight =" + displayRectangle.Height + " Width=" + displayRectangle.Width + " X point=" + displayRectangle.X + " Y point" + displayRectangle.Y + "\r\n");
-            
-            Rectangle displayRectangle2 =
-            new Rectangle(2, 80, 98, 15);
-            File.AppendAllText("log.txt", "displayRectangle2 Area\r\nHeight =" + displayRectangle2.Height + " Width=" + displayRectangle2.Width + " X point=" + displayRectangle2.X + " Y point" + displayRectangle2.Y + "\r\n");
-            StringFormat format1 = new StringFormat(StringFormatFlags.NoClip);
-            format1.Alignment = StringAlignment.Center;
-            format1.LineAlignment = StringAlignment.Center;
-            string single = "";
-            while (count < linesPerPage &&
-               ((line = streamToPrint.ReadLine()) != null))
-            {
-                single += line + Environment.NewLine + Environment.NewLine;
-                count++;
-            }
-            //ev.Graphics.DrawRectangle(Pens.Black, displayRectangle);
-            //ev.Graphics.DrawRectangle(Pens.Black, displayRectangle2);
-            ev.Graphics.DrawString(single, printFont, Brushes.Black, displayRectangle, format1);
-            ev.Graphics.DrawString(Registration_Type, printFontVisitor, Brushes.Black,displayRectangle2, format1);
-            ev.HasMorePages = false;
-        }
-
-        //private void doprint()
-        //{
-        //    PrintDoc printer = new PrintDoc();
-
-        //    //set PrintText
-        //    printer.PrintText = textBox1.Text+" "+ textBox2.Text + "\r\n"+ textBox3.Text + "\r\n" + textBox4.Text;
-
-        //    printer.Print();    // very straightforward
-        //}
 
 
 
@@ -296,7 +273,13 @@ namespace OHDR
             admin a = new admin();
             a.ShowDialog();
             if (!a.isclose)
-            { e.Cancel = true; }
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                Taskbar.Show();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -311,26 +294,12 @@ namespace OHDR
             }
         }
 
-        private void myTxtbx_Enter(object sender, EventArgs e)
-        {
-            if (myTxtbx.Text == "Enter Your Email...")
-            {
-                myTxtbx.Text = "";
-            }
-        }
 
-        private void myTxtbx_Leave(object sender, EventArgs e)
-        {
-            if (myTxtbx.Text == "")
-            {
-                myTxtbx.Text = "Enter Your Email...";
-            }
-        }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click_1(object sender, EventArgs e)
         {
             dt_old.Clear();
-            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '" + myTxtbx.Text.ToLower().ToString() + "'");
+            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email regexp '" + txtSearchBox1.Text.ToLower().ToString() + "'");
             if (dt_old.Rows.Count > 0)
             {
 
@@ -341,18 +310,175 @@ namespace OHDR
                 textBox5.Text = dt_old.Rows[0][4].ToString();
                 textBox6.Text = dt_old.Rows[0][5].ToString();
                 isOld = true;
-                myTxtbx.Text = "";
+                barcode = dt_old.Rows[0][8].ToString();
+                txtSearchBox1.Text = "";
                 return;
             }
             else
-            { MessageBox.Show("Data Not Found."); myTxtbx.Text = ""; return; }
+            { MessageBox.Show("Data Not Found."); txtSearchBox1.Text = ""; return; }
             
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
+            isOld = false;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            
+                if (IsVisible)
+                    panel7.Visible = true;
+                else
+                    panel7.Visible = false;
+            
+             
+            timer1.Enabled = false;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            admin a = new admin();
+            a.ShowDialog();
+            if (a.isclose)
+            {
+                if (IsVisible)
+                    IsVisible = false;
+                else
+                    IsVisible = true;
+                timer1.Enabled = true;
+            }
+            //Form1_Load(sender, e);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            dt_old.Clear();
+            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where (email = '" + txtSearchBox1.Text.ToLower().ToString() + "' or EmpCode = '" + txtSearchBox2.Text.ToLower().ToString() + "') and IsPrinted='YES'");
+            if (dt_old.Rows.Count > 0)
+            {
+                MessageBox.Show(Properties.Settings.Default.BadgeText,"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+                txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
+                return;
+            }
+            else
+            {
+                dt_old = null;
+            }
+            db.SQLQuery(ref db.conn, ref dt_old, "select * from register where email = '" + txtSearchBox1.Text.ToLower().ToString() + "' or EmpCode = '"+ txtSearchBox2.Text.ToLower().ToString() + "'");
+            if (dt_old.Rows.Count == 1)
+            {
+                panel7.Visible = button4.Visible = false;
+                MainPanelLebel.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = true;
+
+                textBox1.Text = dt_old.Rows[0][0].ToString();
+                textBox2.Text = dt_old.Rows[0][1].ToString();
+                textBox3.Text = dt_old.Rows[0][2].ToString();
+                textBox4.Text = dt_old.Rows[0][3].ToString();
+                textBox5.Text = dt_old.Rows[0][4].ToString();
+                textBox6.Text = dt_old.Rows[0][5].ToString();
+                isOld = true;
+                barcode = dt_old.Rows[0][8].ToString();
+                txtSearchBox1.Text = txtSearchBox2.Text = string.Empty;
+                return;
+            }
+            else
+            {
+                MessageBox.Show("No data found. Contact with administrator","Waring",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+                txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
+                return;
+            }
+
+        }
+
+        private void panel7_Paint(object sender, PaintEventArgs e)
+        {
+            //panel7.Location= new Point(524, 160);
+            //panel7.Anchor = AnchorStyles.Left;
+            //panel7.Anchor = AnchorStyles.Right;
+        }
+
+        private void txtSearchBox1_Enter(object sender, EventArgs e)
+        {
+            if (txtSearchBox1.Text == Properties.Settings.Default.EmailSearchText)
+            {
+                {
+                    txtSearchBox1.Text = "";
+                }
+            }
+        }
+
+        private void txtSearchBox1_Leave(object sender, EventArgs e)
+        {
+            if (txtSearchBox1.Text == "")
+            {
+                {
+                    txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+                }
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            panel7.Visible = true;
+            button4.Visible = Properties.Settings.Default.EnableKeyboardButton;
+            MainPanelLebel.Visible = label2.Visible = label3.Visible = label4.Visible = label5.Visible = label6.Visible = label7.Visible = textBox1.Visible = textBox2.Visible = textBox3.Visible = textBox4.Visible = textBox5.Visible = textBox6.Visible = button2.Visible = button1.Visible = false;
+            txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
+            txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
+        }
+
+        private void txtSearchBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSearchBox2_Enter(object sender, EventArgs e)
+        {
+            if (txtSearchBox2.Text == Properties.Settings.Default.UniqueIDSearchText)
+            {
+                {
+                    txtSearchBox2.Text = "";
+                }
+            }
+        }
+
+        private void txtSearchBox2_Leave(object sender, EventArgs e)
+        {
+            if (txtSearchBox2.Text == "")
+            {
+                {
+                    txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
+                }
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
-            isOld = false;
+            try
+            {
+                var path64 = @"C:\Windows\winsxs\amd64_microsoft-windows-osk_31bf3856ad364e35_6.1.7600.16385_none_06b1c513739fb828\osk.exe";
+                var path32 = @"C:\windows\system32\osk.exe";
+                var path = (Environment.Is64BitOperatingSystem) ? path64 : path32;
+                Process.Start(path);
+
+                
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    Process process = Process.Start(new ProcessStartInfo(
+                ((Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\osk.exe"))));
+                }
+                catch (Exception ex2)
+                {
+
+                    MessageBox.Show(ex2.Message);
+                }
+            }
         }
     }
 }

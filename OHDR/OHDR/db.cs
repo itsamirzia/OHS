@@ -12,7 +12,7 @@ namespace OHDR
     class db
     {
         public static MySqlConnection conn = new MySqlConnection(ConfigurationManager.AppSettings["DBConnection"].ToString());
-
+        public static MySqlConnection DBConnectionToCreateDB = new MySqlConnection(ConfigurationManager.AppSettings["DBConn"].ToString());
         //public static string username;
 
 

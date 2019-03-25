@@ -8,22 +8,318 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OHDR.Properties
-{
-
-
+namespace OHDR.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-    {
-
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-        public static Settings Default
-        {
-            get
-            {
+        
+        public static Settings Default {
+            get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2,35,98,25")]
+        public string TextArea {
+            get {
+                return ((string)(this["TextArea"]));
+            }
+            set {
+                this["TextArea"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2,65,98,10")]
+        public string BarcodeArea {
+            get {
+                return ((string)(this["BarcodeArea"]));
+            }
+            set {
+                this["BarcodeArea"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2,80,98,15")]
+        public string BadgeArea {
+            get {
+                return ((string)(this["BadgeArea"]));
+            }
+            set {
+                this["BadgeArea"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int TearTime {
+            get {
+                return ((int)(this["TearTime"]));
+            }
+            set {
+                this["TearTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("336,150")]
+        public string PanelHeaderSize {
+            get {
+                return ((string)(this["PanelHeaderSize"]));
+            }
+            set {
+                this["PanelHeaderSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("186, 118")]
+        public string PanelOrganisedSize {
+            get {
+                return ((string)(this["PanelOrganisedSize"]));
+            }
+            set {
+                this["PanelOrganisedSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 6, 76")]
+        public global::System.Drawing.Color ThemeColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ThemeColor"]));
+            }
+            set {
+                this["ThemeColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Visitor")]
+        public string RegistrationType {
+            get {
+                return ((string)(this["RegistrationType"]));
+            }
+            set {
+                this["RegistrationType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("EVE")]
+        public string PrefixCustomerCode {
+            get {
+                return ((string)(this["PrefixCustomerCode"]));
+            }
+            set {
+                this["PrefixCustomerCode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableSearch {
+            get {
+                return ((bool)(this["EnableSearch"]));
+            }
+            set {
+                this["EnableSearch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PrintBarcode {
+            get {
+                return ((bool)(this["PrintBarcode"]));
+            }
+            set {
+                this["PrintBarcode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("banner.png")]
+        public string HeaderImage {
+            get {
+                return ((string)(this["HeaderImage"]));
+            }
+            set {
+                this["HeaderImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("organisedby.jpg")]
+        public string OrganisedByImage {
+            get {
+                return ((string)(this["OrganisedByImage"]));
+            }
+            set {
+                this["OrganisedByImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FHO.ico")]
+        public string IconName {
+            get {
+                return ((string)(this["IconName"]));
+            }
+            set {
+                this["IconName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableSideBanner {
+            get {
+                return ((bool)(this["EnableSideBanner"]));
+            }
+            set {
+                this["EnableSideBanner"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("sideBanner.gif")]
+        public string LeftSideBarImage {
+            get {
+                return ((string)(this["LeftSideBarImage"]));
+            }
+            set {
+                this["LeftSideBarImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("sideBanner.gif")]
+        public string RightSideBarImage {
+            get {
+                return ((string)(this["RightSideBarImage"]));
+            }
+            set {
+                this["RightSideBarImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("PLEASE CONFIRM BEFORE PRINT")]
+        public string MainPanelLebel {
+            get {
+                return ((string)(this["MainPanelLebel"]));
+            }
+            set {
+                this["MainPanelLebel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public string BackgroundImage {
+            get {
+                return ((string)(this["BackgroundImage"]));
+            }
+            set {
+                this["BackgroundImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayBGImage {
+            get {
+                return ((bool)(this["DisplayBGImage"]));
+            }
+            set {
+                this["DisplayBGImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Badge already printed. Contact to administrator.")]
+        public string BadgeText {
+            get {
+                return ((string)(this["BadgeText"]));
+            }
+            set {
+                this["BadgeText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ENTER YOUR EMAIL...")]
+        public string EmailSearchText {
+            get {
+                return ((string)(this["EmailSearchText"]));
+            }
+            set {
+                this["EmailSearchText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ENTER YOUR UNIQUE ID...")]
+        public string UniqueIDSearchText {
+            get {
+                return ((string)(this["UniqueIDSearchText"]));
+            }
+            set {
+                this["UniqueIDSearchText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("tearWindow.jpg")]
+        public string TearWindowImage {
+            get {
+                return ((string)(this["TearWindowImage"]));
+            }
+            set {
+                this["TearWindowImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableKeyboardButton {
+            get {
+                return ((bool)(this["EnableKeyboardButton"]));
+            }
+            set {
+                this["EnableKeyboardButton"] = value;
             }
         }
     }

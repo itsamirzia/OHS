@@ -1,2 +1,0 @@
-Printable Area
-Height =1133.333 Width=778.6667 X point=23.66667 Y point16.66667
