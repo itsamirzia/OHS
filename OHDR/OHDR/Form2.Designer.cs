@@ -35,6 +35,8 @@
             this.btnDownloadData = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbKeyboardButton = new System.Windows.Forms.ComboBox();
+            this.label37 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.txtUniqueIDSearchText = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
@@ -114,8 +116,7 @@
             this.txtToRowIndex = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.cmbKeyboardButton = new System.Windows.Forms.ComboBox();
-            this.label37 = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -123,6 +124,7 @@
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel4.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -130,7 +132,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(978, 785);
+            this.label1.Location = new System.Drawing.Point(477, 785);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 37);
@@ -141,18 +143,20 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 612);
+            this.dataGridView1.Location = new System.Drawing.Point(13, 71);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(6);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1473, 639);
+            this.dataGridView1.Size = new System.Drawing.Size(746, 697);
             this.dataGridView1.TabIndex = 1;
             // 
             // btnUploadCSVFile
             // 
-            this.btnUploadCSVFile.Location = new System.Drawing.Point(1058, 542);
+            this.btnUploadCSVFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUploadCSVFile.Location = new System.Drawing.Point(399, 6);
             this.btnUploadCSVFile.Margin = new System.Windows.Forms.Padding(6);
             this.btnUploadCSVFile.Name = "btnUploadCSVFile";
-            this.btnUploadCSVFile.Size = new System.Drawing.Size(209, 44);
+            this.btnUploadCSVFile.Size = new System.Drawing.Size(166, 44);
             this.btnUploadCSVFile.TabIndex = 2;
             this.btnUploadCSVFile.Text = "Upload csv File";
             this.btnUploadCSVFile.UseVisualStyleBackColor = true;
@@ -165,10 +169,12 @@
             // 
             // btnDownloadData
             // 
-            this.btnDownloadData.Location = new System.Drawing.Point(826, 542);
+            this.btnDownloadData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDownloadData.Location = new System.Drawing.Point(201, 6);
             this.btnDownloadData.Margin = new System.Windows.Forms.Padding(6);
             this.btnDownloadData.Name = "btnDownloadData";
-            this.btnDownloadData.Size = new System.Drawing.Size(220, 44);
+            this.btnDownloadData.Size = new System.Drawing.Size(177, 44);
             this.btnDownloadData.TabIndex = 3;
             this.btnDownloadData.Text = "Download Data";
             this.btnDownloadData.UseVisualStyleBackColor = true;
@@ -216,15 +222,35 @@
             this.panel1.Controls.Add(this.txtRegistrationType);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.txtThemeColor);
-            this.panel1.Location = new System.Drawing.Point(1497, 415);
+            this.panel1.Location = new System.Drawing.Point(830, 415);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1465, 836);
+            this.panel1.Size = new System.Drawing.Size(1181, 836);
             this.panel1.TabIndex = 16;
+            // 
+            // cmbKeyboardButton
+            // 
+            this.cmbKeyboardButton.FormattingEnabled = true;
+            this.cmbKeyboardButton.Items.AddRange(new object[] {
+            "TRUE",
+            "FALSE"});
+            this.cmbKeyboardButton.Location = new System.Drawing.Point(399, 564);
+            this.cmbKeyboardButton.Name = "cmbKeyboardButton";
+            this.cmbKeyboardButton.Size = new System.Drawing.Size(200, 33);
+            this.cmbKeyboardButton.TabIndex = 101;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(113, 564);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(245, 25);
+            this.label37.TabIndex = 100;
+            this.label37.Text = "Enable Keyboard Button";
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(765, 507);
+            this.label35.Location = new System.Drawing.Point(633, 506);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(228, 25);
             this.label35.TabIndex = 99;
@@ -232,9 +258,9 @@
             // 
             // txtUniqueIDSearchText
             // 
-            this.txtUniqueIDSearchText.Location = new System.Drawing.Point(1051, 507);
+            this.txtUniqueIDSearchText.Location = new System.Drawing.Point(919, 506);
             this.txtUniqueIDSearchText.Name = "txtUniqueIDSearchText";
-            this.txtUniqueIDSearchText.Size = new System.Drawing.Size(323, 31);
+            this.txtUniqueIDSearchText.Size = new System.Drawing.Size(200, 31);
             this.txtUniqueIDSearchText.TabIndex = 98;
             // 
             // label34
@@ -250,7 +276,7 @@
             // 
             this.txtEmailSearchText.Location = new System.Drawing.Point(399, 507);
             this.txtEmailSearchText.Name = "txtEmailSearchText";
-            this.txtEmailSearchText.Size = new System.Drawing.Size(323, 31);
+            this.txtEmailSearchText.Size = new System.Drawing.Size(200, 31);
             this.txtEmailSearchText.TabIndex = 96;
             // 
             // panel5
@@ -260,7 +286,7 @@
             this.panel5.Controls.Add(this.btnEnableUser);
             this.panel5.Controls.Add(this.txtProvideID);
             this.panel5.Controls.Add(this.label28);
-            this.panel5.Location = new System.Drawing.Point(63, 633);
+            this.panel5.Location = new System.Drawing.Point(103, 633);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(930, 158);
             this.panel5.TabIndex = 89;
@@ -301,15 +327,15 @@
             this.cmbUniqueIDSearch.Items.AddRange(new object[] {
             "TRUE",
             "FALSE"});
-            this.cmbUniqueIDSearch.Location = new System.Drawing.Point(1051, 444);
+            this.cmbUniqueIDSearch.Location = new System.Drawing.Point(919, 443);
             this.cmbUniqueIDSearch.Name = "cmbUniqueIDSearch";
-            this.cmbUniqueIDSearch.Size = new System.Drawing.Size(323, 33);
+            this.cmbUniqueIDSearch.Size = new System.Drawing.Size(200, 33);
             this.cmbUniqueIDSearch.TabIndex = 95;
             // 
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(765, 444);
+            this.label30.Location = new System.Drawing.Point(633, 443);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(253, 25);
             this.label30.TabIndex = 94;
@@ -323,7 +349,7 @@
             "FALSE"});
             this.cmbEnableEmailSearch.Location = new System.Drawing.Point(399, 444);
             this.cmbEnableEmailSearch.Name = "cmbEnableEmailSearch";
-            this.cmbEnableEmailSearch.Size = new System.Drawing.Size(323, 33);
+            this.cmbEnableEmailSearch.Size = new System.Drawing.Size(200, 33);
             this.cmbEnableEmailSearch.TabIndex = 93;
             // 
             // label29
@@ -338,7 +364,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(765, 383);
+            this.label27.Location = new System.Drawing.Point(633, 382);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(225, 25);
             this.label27.TabIndex = 91;
@@ -346,9 +372,9 @@
             // 
             // txtBadgePrintErrorText
             // 
-            this.txtBadgePrintErrorText.Location = new System.Drawing.Point(1051, 377);
+            this.txtBadgePrintErrorText.Location = new System.Drawing.Point(919, 376);
             this.txtBadgePrintErrorText.Name = "txtBadgePrintErrorText";
-            this.txtBadgePrintErrorText.Size = new System.Drawing.Size(323, 31);
+            this.txtBadgePrintErrorText.Size = new System.Drawing.Size(200, 31);
             this.txtBadgePrintErrorText.TabIndex = 90;
             // 
             // cmbDisplayBGImage
@@ -357,15 +383,15 @@
             this.cmbDisplayBGImage.Items.AddRange(new object[] {
             "TRUE",
             "FALSE"});
-            this.cmbDisplayBGImage.Location = new System.Drawing.Point(1051, 316);
+            this.cmbDisplayBGImage.Location = new System.Drawing.Point(919, 315);
             this.cmbDisplayBGImage.Name = "cmbDisplayBGImage";
-            this.cmbDisplayBGImage.Size = new System.Drawing.Size(323, 33);
+            this.cmbDisplayBGImage.Size = new System.Drawing.Size(200, 33);
             this.cmbDisplayBGImage.TabIndex = 89;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(765, 323);
+            this.label3.Location = new System.Drawing.Point(633, 322);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(268, 25);
             this.label3.TabIndex = 88;
@@ -404,15 +430,15 @@
             this.cmbEnabeSideBanner.Items.AddRange(new object[] {
             "TRUE",
             "FALSE"});
-            this.cmbEnabeSideBanner.Location = new System.Drawing.Point(1051, 257);
+            this.cmbEnabeSideBanner.Location = new System.Drawing.Point(919, 256);
             this.cmbEnabeSideBanner.Name = "cmbEnabeSideBanner";
-            this.cmbEnabeSideBanner.Size = new System.Drawing.Size(323, 33);
+            this.cmbEnabeSideBanner.Size = new System.Drawing.Size(200, 33);
             this.cmbEnabeSideBanner.TabIndex = 83;
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(765, 267);
+            this.label24.Location = new System.Drawing.Point(633, 266);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(197, 25);
             this.label24.TabIndex = 82;
@@ -431,7 +457,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(765, 203);
+            this.label12.Location = new System.Drawing.Point(633, 202);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(179, 25);
             this.label12.TabIndex = 81;
@@ -439,9 +465,9 @@
             // 
             // txtMainPanelLebel
             // 
-            this.txtMainPanelLebel.Location = new System.Drawing.Point(1051, 197);
+            this.txtMainPanelLebel.Location = new System.Drawing.Point(919, 196);
             this.txtMainPanelLebel.Name = "txtMainPanelLebel";
-            this.txtMainPanelLebel.Size = new System.Drawing.Size(323, 31);
+            this.txtMainPanelLebel.Size = new System.Drawing.Size(200, 31);
             this.txtMainPanelLebel.TabIndex = 80;
             // 
             // cmbBarcode
@@ -452,7 +478,7 @@
             "FALSE"});
             this.cmbBarcode.Location = new System.Drawing.Point(399, 382);
             this.cmbBarcode.Name = "cmbBarcode";
-            this.cmbBarcode.Size = new System.Drawing.Size(323, 33);
+            this.cmbBarcode.Size = new System.Drawing.Size(200, 33);
             this.cmbBarcode.TabIndex = 79;
             // 
             // cmbEnableSearch
@@ -463,13 +489,13 @@
             "FALSE"});
             this.cmbEnableSearch.Location = new System.Drawing.Point(399, 319);
             this.cmbEnableSearch.Name = "cmbEnableSearch";
-            this.cmbEnableSearch.Size = new System.Drawing.Size(323, 33);
+            this.cmbEnableSearch.Size = new System.Drawing.Size(200, 33);
             this.cmbEnableSearch.TabIndex = 78;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(765, 137);
+            this.label11.Location = new System.Drawing.Point(633, 136);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(222, 25);
             this.label11.TabIndex = 77;
@@ -477,9 +503,9 @@
             // 
             // txtTearTime
             // 
-            this.txtTearTime.Location = new System.Drawing.Point(1051, 134);
+            this.txtTearTime.Location = new System.Drawing.Point(919, 133);
             this.txtTearTime.Name = "txtTearTime";
-            this.txtTearTime.Size = new System.Drawing.Size(323, 31);
+            this.txtTearTime.Size = new System.Drawing.Size(200, 31);
             this.txtTearTime.TabIndex = 76;
             // 
             // label10
@@ -513,7 +539,7 @@
             // 
             this.txtPrefix.Location = new System.Drawing.Point(399, 257);
             this.txtPrefix.Name = "txtPrefix";
-            this.txtPrefix.Size = new System.Drawing.Size(323, 31);
+            this.txtPrefix.Size = new System.Drawing.Size(200, 31);
             this.txtPrefix.TabIndex = 72;
             // 
             // label7
@@ -529,7 +555,7 @@
             // 
             this.txtRegistrationType.Location = new System.Drawing.Point(399, 197);
             this.txtRegistrationType.Name = "txtRegistrationType";
-            this.txtRegistrationType.Size = new System.Drawing.Size(323, 31);
+            this.txtRegistrationType.Size = new System.Drawing.Size(200, 31);
             this.txtRegistrationType.TabIndex = 70;
             // 
             // label6
@@ -545,7 +571,7 @@
             // 
             this.txtThemeColor.Location = new System.Drawing.Point(399, 134);
             this.txtThemeColor.Name = "txtThemeColor";
-            this.txtThemeColor.Size = new System.Drawing.Size(323, 31);
+            this.txtThemeColor.Size = new System.Drawing.Size(200, 31);
             this.txtThemeColor.TabIndex = 68;
             // 
             // panel2
@@ -571,7 +597,7 @@
             this.panel2.Controls.Add(this.btnHeaderUpload);
             this.panel2.Location = new System.Drawing.Point(35, 53);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1453, 412);
+            this.panel2.Size = new System.Drawing.Size(765, 412);
             this.panel2.TabIndex = 17;
             // 
             // label36
@@ -588,7 +614,7 @@
             this.txtTearWindowImage.Enabled = false;
             this.txtTearWindowImage.Location = new System.Drawing.Point(312, 364);
             this.txtTearWindowImage.Name = "txtTearWindowImage";
-            this.txtTearWindowImage.Size = new System.Drawing.Size(323, 31);
+            this.txtTearWindowImage.Size = new System.Drawing.Size(200, 31);
             this.txtTearWindowImage.TabIndex = 68;
             // 
             // btnTearWindowImage
@@ -617,7 +643,7 @@
             this.txtBackgroundImage.Enabled = false;
             this.txtBackgroundImage.Location = new System.Drawing.Point(312, 309);
             this.txtBackgroundImage.Name = "txtBackgroundImage";
-            this.txtBackgroundImage.Size = new System.Drawing.Size(323, 31);
+            this.txtBackgroundImage.Size = new System.Drawing.Size(200, 31);
             this.txtBackgroundImage.TabIndex = 65;
             // 
             // btnBackgroundImage
@@ -646,7 +672,7 @@
             this.txtIconImage.Enabled = false;
             this.txtIconImage.Location = new System.Drawing.Point(312, 76);
             this.txtIconImage.Name = "txtIconImage";
-            this.txtIconImage.Size = new System.Drawing.Size(323, 31);
+            this.txtIconImage.Size = new System.Drawing.Size(200, 31);
             this.txtIconImage.TabIndex = 62;
             // 
             // btnIconUpload
@@ -685,7 +711,7 @@
             this.txtRightSideBanner.Enabled = false;
             this.txtRightSideBanner.Location = new System.Drawing.Point(311, 253);
             this.txtRightSideBanner.Name = "txtRightSideBanner";
-            this.txtRightSideBanner.Size = new System.Drawing.Size(323, 31);
+            this.txtRightSideBanner.Size = new System.Drawing.Size(200, 31);
             this.txtRightSideBanner.TabIndex = 26;
             // 
             // btnRightSideBannerUpload
@@ -714,7 +740,7 @@
             this.txtLeftSideBanner.Enabled = false;
             this.txtLeftSideBanner.Location = new System.Drawing.Point(311, 191);
             this.txtLeftSideBanner.Name = "txtLeftSideBanner";
-            this.txtLeftSideBanner.Size = new System.Drawing.Size(323, 31);
+            this.txtLeftSideBanner.Size = new System.Drawing.Size(200, 31);
             this.txtLeftSideBanner.TabIndex = 23;
             // 
             // btnLeftSideBannerUpload
@@ -743,7 +769,7 @@
             this.txtBanner.Enabled = false;
             this.txtBanner.Location = new System.Drawing.Point(311, 130);
             this.txtBanner.Name = "txtBanner";
-            this.txtBanner.Size = new System.Drawing.Size(323, 31);
+            this.txtBanner.Size = new System.Drawing.Size(200, 31);
             this.txtBanner.TabIndex = 17;
             // 
             // btnHeaderUpload
@@ -768,9 +794,9 @@
             this.panel3.Controls.Add(this.txtBarcodeArea);
             this.panel3.Controls.Add(this.label15);
             this.panel3.Controls.Add(this.txtBadgeArea);
-            this.panel3.Location = new System.Drawing.Point(1497, 53);
+            this.panel3.Location = new System.Drawing.Point(830, 53);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1465, 344);
+            this.panel3.Size = new System.Drawing.Size(1181, 344);
             this.panel3.TabIndex = 18;
             // 
             // label19
@@ -796,7 +822,7 @@
             // 
             this.txtTextArea.Location = new System.Drawing.Point(384, 156);
             this.txtTextArea.Name = "txtTextArea";
-            this.txtTextArea.Size = new System.Drawing.Size(323, 31);
+            this.txtTextArea.Size = new System.Drawing.Size(200, 31);
             this.txtTextArea.TabIndex = 71;
             // 
             // label16
@@ -812,7 +838,7 @@
             // 
             this.txtBarcodeArea.Location = new System.Drawing.Point(384, 215);
             this.txtBarcodeArea.Name = "txtBarcodeArea";
-            this.txtBarcodeArea.Size = new System.Drawing.Size(323, 31);
+            this.txtBarcodeArea.Size = new System.Drawing.Size(200, 31);
             this.txtBarcodeArea.TabIndex = 69;
             // 
             // label15
@@ -828,7 +854,7 @@
             // 
             this.txtBadgeArea.Location = new System.Drawing.Point(384, 275);
             this.txtBadgeArea.Name = "txtBadgeArea";
-            this.txtBadgeArea.Size = new System.Drawing.Size(323, 31);
+            this.txtBadgeArea.Size = new System.Drawing.Size(200, 31);
             this.txtBadgeArea.TabIndex = 67;
             // 
             // btnSaveNContinue
@@ -838,7 +864,7 @@
             this.btnSaveNContinue.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveNContinue.Location = new System.Drawing.Point(12, 1260);
             this.btnSaveNContinue.Name = "btnSaveNContinue";
-            this.btnSaveNContinue.Size = new System.Drawing.Size(3663, 129);
+            this.btnSaveNContinue.Size = new System.Drawing.Size(2662, 129);
             this.btnSaveNContinue.TabIndex = 83;
             this.btnSaveNContinue.Text = "Save and Continue";
             this.btnSaveNContinue.UseVisualStyleBackColor = true;
@@ -848,7 +874,7 @@
             // 
             this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(3068, 214);
+            this.dataGridView2.Location = new System.Drawing.Point(2076, 214);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 33;
             this.dataGridView2.Size = new System.Drawing.Size(439, 363);
@@ -859,7 +885,7 @@
             this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(3058, 53);
+            this.label21.Location = new System.Drawing.Point(2066, 53);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(479, 55);
             this.label21.TabIndex = 74;
@@ -869,7 +895,7 @@
             // 
             this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(3063, 147);
+            this.label22.Location = new System.Drawing.Point(2071, 147);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(239, 25);
             this.label22.TabIndex = 85;
@@ -879,7 +905,7 @@
             // 
             this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(3308, 147);
+            this.label23.Location = new System.Drawing.Point(2307, 147);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(24, 25);
             this.label23.TabIndex = 86;
@@ -887,10 +913,12 @@
             // 
             // btnClearData
             // 
-            this.btnClearData.Location = new System.Drawing.Point(1279, 542);
+            this.btnClearData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClearData.Location = new System.Drawing.Point(593, 6);
             this.btnClearData.Margin = new System.Windows.Forms.Padding(6);
             this.btnClearData.Name = "btnClearData";
-            this.btnClearData.Size = new System.Drawing.Size(209, 44);
+            this.btnClearData.Size = new System.Drawing.Size(166, 44);
             this.btnClearData.TabIndex = 87;
             this.btnClearData.Text = "Clear Data";
             this.btnClearData.UseVisualStyleBackColor = true;
@@ -908,7 +936,7 @@
             this.panel4.Controls.Add(this.txtToRowIndex);
             this.panel4.Controls.Add(this.label14);
             this.panel4.Controls.Add(this.label13);
-            this.panel4.Location = new System.Drawing.Point(3025, 612);
+            this.panel4.Location = new System.Drawing.Point(2033, 612);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(650, 639);
             this.panel4.TabIndex = 88;
@@ -988,33 +1016,24 @@
             this.label13.TabIndex = 75;
             this.label13.Text = "Bulk Printer";
             // 
-            // cmbKeyboardButton
+            // panel6
             // 
-            this.cmbKeyboardButton.FormattingEnabled = true;
-            this.cmbKeyboardButton.Items.AddRange(new object[] {
-            "TRUE",
-            "FALSE"});
-            this.cmbKeyboardButton.Location = new System.Drawing.Point(399, 564);
-            this.cmbKeyboardButton.Name = "cmbKeyboardButton";
-            this.cmbKeyboardButton.Size = new System.Drawing.Size(323, 33);
-            this.cmbKeyboardButton.TabIndex = 101;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(113, 564);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(245, 25);
-            this.label37.TabIndex = 100;
-            this.label37.Text = "Enable Keyboard Button";
+            this.panel6.Controls.Add(this.btnClearData);
+            this.panel6.Controls.Add(this.btnUploadCSVFile);
+            this.panel6.Controls.Add(this.btnDownloadData);
+            this.panel6.Controls.Add(this.dataGridView1);
+            this.panel6.Location = new System.Drawing.Point(35, 480);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(765, 774);
+            this.panel6.TabIndex = 89;
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(3726, 1429);
+            this.ClientSize = new System.Drawing.Size(2725, 1429);
+            this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel4);
-            this.Controls.Add(this.btnClearData);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label21);
@@ -1023,9 +1042,6 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnDownloadData);
-            this.Controls.Add(this.btnUploadCSVFile);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
@@ -1047,6 +1063,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1142,5 +1159,6 @@
         private System.Windows.Forms.Button btnTearWindowImage;
         private System.Windows.Forms.ComboBox cmbKeyboardButton;
         private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Panel panel6;
     }
 }

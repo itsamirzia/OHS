@@ -100,29 +100,35 @@ namespace OHDR
         
         private void btnHeaderUpload_Click(object sender, EventArgs e)
         {
-            var button = (Button)sender;
-            uploadFile(button.Name);
+            string destinationFileName = uploadFile();
+            if (destinationFileName != string.Empty)
+                txtBanner.Text = destinationFileName;
         }
 
         private void btnIconUpload_Click(object sender, EventArgs e)
         {
-            var button = (Button)sender;
-            uploadFile(button.Name);            
+            string destinationFileName = uploadFile(true);
+            if (destinationFileName != string.Empty)
+                txtIconImage.Text = destinationFileName;
         }
-        public void uploadFile(string buttonName)
+        public string uploadFile(bool IconImage=false)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.ico) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.ico";
+            if(IconImage)
+                dialog.Filter = "Image files (*.ico)|*.ico";
+            else
+                dialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             string filepath = string.Empty;
+            string destinationFileName = string.Empty;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 filepath = dialog.FileName;
             }
             else
             {
-                return;
+                return string.Empty;
             }
-            string destinationFileName = filepath.Substring(filepath.LastIndexOf('\\') + 1);
+            destinationFileName = filepath.Substring(filepath.LastIndexOf('\\') + 1);
             
             try
             {
@@ -139,43 +145,15 @@ namespace OHDR
                     File.Copy(filepath, Application.StartupPath + "//" + destinationFileName);
                 }
                 MessageBox.Show("Uploaded Succesfully", "Done", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return destinationFileName;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return string.Empty;
             }
 
-            switch (buttonName)
-            {
-                case "btnIconUpload":
-                    if (Path.GetExtension(filepath).ToUpper() != ".ICO")
-                    {
-                        MessageBox.Show("please select icon file");
-                        return;
-                    }
-                    else
-                    {
-                        txtIconImage.Text = destinationFileName;
-                    }
-                    break;
-                case "btnHeaderUpload":
-                    txtBanner.Text = destinationFileName;
-                    break;
-                case "btnLeftSideBannerUpload":
-                    txtLeftSideBanner.Text = destinationFileName;
-                    break;
-                case "btnRightSideBannerUpload":
-                    txtRightSideBanner.Text = destinationFileName;
-                    break;
-                case "btnBackgroundImage":
-                    txtBackgroundImage.Text = destinationFileName;
-                    break;
-                case "btnTearWindowImage":
-                    txtTearWindowImage.Text = destinationFileName;
-                    break;
-                default:
-                    break;
-            }
+            
             
         }
 
@@ -282,20 +260,21 @@ namespace OHDR
 
         private void btnOrganised_Click(object sender, EventArgs e)
         {
-            var button = (Button)sender;
-            uploadFile(button.Name);
+
         }
 
         private void btnLeftSideBannerUpload_Click(object sender, EventArgs e)
         {
-            var button = (Button)sender;
-            uploadFile(button.Name);
+            string destinationFileName = uploadFile();
+            if (destinationFileName != string.Empty)
+                txtLeftSideBanner.Text = destinationFileName;
         }
 
         private void btnRightSideBannerUpload_Click(object sender, EventArgs e)
         {
-            var button = (Button)sender;
-            uploadFile(button.Name);
+            string destinationFileName = uploadFile();
+            if (destinationFileName != string.Empty)
+                txtRightSideBanner.Text = destinationFileName;
         }
 
         private void btnClearData_Click(object sender, EventArgs e)
@@ -313,8 +292,9 @@ namespace OHDR
 
         private void btnBackgroundImage_Click(object sender, EventArgs e)
         {
-            var button = (Button)sender;
-            uploadFile(button.Name);
+            string destinationFileName = uploadFile();
+            if (destinationFileName != string.Empty)
+                txtBackgroundImage.Text = destinationFileName;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -395,8 +375,9 @@ namespace OHDR
 
         private void btnTearWindowImage_Click(object sender, EventArgs e)
         {
-            var button = (Button)sender;
-            uploadFile(button.Name);
+            string destinationFileName = uploadFile();
+            if (destinationFileName != string.Empty)
+                txtTearWindowImage.Text = destinationFileName;
         }
     }
 }

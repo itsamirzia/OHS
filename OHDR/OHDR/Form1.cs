@@ -9,6 +9,8 @@ using System.Data;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Management;
+using System.Management.Instrumentation;
 
 namespace OHDR
 {
@@ -41,6 +43,17 @@ namespace OHDR
         public Form1()
         {            
             InitializeComponent();
+            var screenResolution = GetMaximumScreenSizePrimary();
+            if (screenResolution.Width < 1900)
+            {
+                panel3.Height = panel3.Height / 2;
+                pictureBox1.Width = 150;
+                pictureBox2.Width = 150;
+                pictureBox1.Location = new Point(pictureBox1.Location.X + 50, pictureBox1.Location.Y);
+                pictureBox2.Location = new Point(pictureBox2.Location.X +50, pictureBox1.Location.Y);
+                //panel4.Anchor = AnchorStyles.Bottom;
+                panel4.Anchor = AnchorStyles.None;//.Top;
+            }
         }
 
         public void DrawRoundRect(Graphics g, Pen p, float X, float Y, float width, float height, float radius)
@@ -73,9 +86,42 @@ namespace OHDR
             }
             base.WndProc(ref m);
         }
+        public Size GetMaximumScreenSizePrimary()
+        {
+            var scope = new System.Management.ManagementScope();
+            var q = new System.Management.ObjectQuery("SELECT * FROM CIM_VideoControllerResolution");
 
+            UInt32 maxHResolution = 0;
+            UInt32 maxVResolution = 0;
+
+            using (var searcher = new System.Management.ManagementObjectSearcher(scope, q))
+            {
+                var results = searcher.Get();
+
+                foreach (var item in results)
+                {
+                    if ((UInt32)item["HorizontalResolution"] > maxHResolution)
+                        maxHResolution = (UInt32)item["HorizontalResolution"];
+
+                    if ((UInt32)item["VerticalResolution"] > maxVResolution)
+                        maxVResolution = (UInt32)item["VerticalResolution"];
+                }
+                
+            }
+            return new Size(Convert.ToInt32(maxHResolution), Convert.ToInt32(maxVResolution));
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
+            var screenResolution = GetMaximumScreenSizePrimary();
+            if (screenResolution.Width < 1900)
+            {
+                panel3.Height = panel3.Height / 2;
+                pictureBox1.Width = pictureBox1.Width / 2;
+                pictureBox2.Width = pictureBox2.Width / 2;
+                pictureBox2.Location = new Point(pictureBox2.Location.X + pictureBox2.Width/2, pictureBox2.Location.Y);
+                //panel4.Anchor = AnchorStyles.Bottom;
+                panel4.Anchor = AnchorStyles.None;//.Top;
+            }
             panel7.Anchor = AnchorStyles.None;
             if (Properties.Settings.Default.DisplayBGImage)
             {

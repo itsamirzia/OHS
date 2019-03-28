@@ -181,7 +181,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FHO.ico")]
+        [global::System.Configuration.DefaultSettingValueAttribute("organisedby.ico")]
         public string IconName {
             get {
                 return ((string)(this["IconName"]));
