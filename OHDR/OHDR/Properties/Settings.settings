@@ -42,7 +42,7 @@
       <Value Profile="(Default)">organisedby.jpg</Value>
     </Setting>
     <Setting Name="IconName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">FHO.ico</Value>
+      <Value Profile="(Default)">organisedby.ico</Value>
     </Setting>
     <Setting Name="EnableSideBanner" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
