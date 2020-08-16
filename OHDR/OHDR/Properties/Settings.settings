@@ -30,7 +30,7 @@
       <Value Profile="(Default)">EVE</Value>
     </Setting>
     <Setting Name="EnableSearch" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PrintBarcode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -76,6 +76,9 @@
     </Setting>
     <Setting Name="EnableKeyboardButton" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Scanner" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

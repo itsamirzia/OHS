@@ -101,7 +101,7 @@ namespace OHDR
             txtSearchBox1.Text = Properties.Settings.Default.EmailSearchText;
             txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
             MainPanelLebel.Text = Properties.Settings.Default.MainPanelLebel.ToUpper();
-            panel3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.HeaderImage);
+            //panel3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.HeaderImage);
             //panel2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.OrganisedByImage);
             button1.BackColor = button4.BackColor = button3.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor =  Properties.Settings.Default.ThemeColor;// "#9E2065";
         }
@@ -288,7 +288,7 @@ namespace OHDR
             a.ShowDialog();
             if (a.isclose)
             {
-                Form2 f2 = new Form2();
+                Administrator f2 = new Administrator();
                     f2.ShowDialog();
                 
             }

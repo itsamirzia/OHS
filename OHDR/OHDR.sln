@@ -1,11 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.64
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHDR", "OHDR\OHDR.csproj", "{6C0E7FB6-87AE-4BC3-A3AC-F6F9054924A6}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "VRSetup", "VRSetup\VRSetup.vdproj", "{67B41027-86E3-41A9-A855-5F877C64690B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,12 +22,6 @@ Global
 		{6C0E7FB6-87AE-4BC3-A3AC-F6F9054924A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6C0E7FB6-87AE-4BC3-A3AC-F6F9054924A6}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{6C0E7FB6-87AE-4BC3-A3AC-F6F9054924A6}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{67B41027-86E3-41A9-A855-5F877C64690B}.CD_ROM|Any CPU.ActiveCfg = Release
-		{67B41027-86E3-41A9-A855-5F877C64690B}.Debug|Any CPU.ActiveCfg = Debug
-		{67B41027-86E3-41A9-A855-5F877C64690B}.DVD-5|Any CPU.ActiveCfg = Debug
-		{67B41027-86E3-41A9-A855-5F877C64690B}.Release|Any CPU.ActiveCfg = Release
-		{67B41027-86E3-41A9-A855-5F877C64690B}.Release|Any CPU.Build.0 = Release
-		{67B41027-86E3-41A9-A855-5F877C64690B}.SingleImage|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

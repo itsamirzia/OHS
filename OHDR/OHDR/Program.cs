@@ -14,6 +14,7 @@ namespace OHDR
         [STAThread]
         static void Main()
         {
+            Taskbar.Show();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             if (db.ExecuteSQLQuery(ref db.DBConnectionToCreateDB, "CREATE DATABASE IF NOT EXISTS ohs;"))
@@ -36,7 +37,7 @@ namespace OHDR
                     objA.ShowDialog();
                     if (objA.isclose)
                     {
-                        Application.Run(new Form2());
+                        Application.Run(new Administrator());
                     }
                 }
                 else

@@ -10,3 +10,15 @@ C:\MyDrive\Pers\GitRpo\OHS_Develop\OHDR\OHDR\obj\Debug\OHDR.csproj.GenerateResou
 C:\MyDrive\Pers\GitRpo\OHS_Develop\OHDR\OHDR\obj\Debug\OHDR.exe
 C:\MyDrive\Pers\GitRpo\OHS_Develop\OHDR\OHDR\obj\Debug\OHDR.pdb
 C:\MyDrive\Pers\GitRpo\OHS_Develop\OHDR\OHDR\obj\Debug\OHDR.csprojResolveAssemblyReference.cache
+D:\MyGITProjects\OHS\OHDR\OHDR\bin\Debug\OHDR.exe.config
+D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.exe
+D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.pdb
+D:\MyGITProjects\OHS\OHDR\OHDR\bin\Debug\OHDR.exe
+D:\MyGITProjects\OHS\OHDR\OHDR\bin\Debug\OHDR.pdb
+D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.admin.resources
+D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.Form1.resources
+D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.Form3.resources
+D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.Properties.Resources.resources
+D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.csproj.GenerateResource.Cache
+D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.Administrator.resources
+D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.csprojResolveAssemblyReference.cache
