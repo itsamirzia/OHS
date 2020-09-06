@@ -53,7 +53,7 @@ namespace OHDR
                 printDocument.Print();
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                
             }
@@ -74,7 +74,7 @@ namespace OHDR
             format1.Alignment = StringAlignment.Center;
             format1.LineAlignment = StringAlignment.Center;
 
-            if (Properties.Settings.Default.PrintBarcode)
+            if (true)
             {
                 Bitmap bitm = new Bitmap(barcode.Length * 5, 20);
                 using (Graphics graphic = Graphics.FromImage(bitm))

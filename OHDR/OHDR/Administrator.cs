@@ -137,7 +137,7 @@ namespace OHDR
         {
             Taskbar.Show();
             pnlPrintArea.Visible = pnlImpex.Visible=pnlMisc.Visible = false;
-            pnlPrintArea.Size = pnlImpex.Size = pnlMisc.Size = new System.Drawing.Size(800, 400);
+            pnlPrintArea.Size = pnlImpex.Size = pnlMisc.Size = new System.Drawing.Size(900, 400);
             Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + Properties.Settings.Default.IconName);
             this.Icon = icon;
             dataGridView1.DataSource = null;
@@ -175,6 +175,7 @@ namespace OHDR
             txtUniqueIDSearchText.Text = Properties.Settings.Default.UniqueIDSearchText;
             txtTearWindowImage.Text = Properties.Settings.Default.TearWindowImage.ToString();
             cmbScanner.Text = Properties.Settings.Default.Scanner.ToString();
+            txtEventID.Text = Properties.Settings.Default.EventID.ToString();
         }
 
         private void btnUploadCSVFile_Click(object sender, EventArgs e)
@@ -220,13 +221,13 @@ namespace OHDR
             Properties.Settings.Default.EmailSearchText = txtEmailSearchText.Text;
             Properties.Settings.Default.UniqueIDSearchText = txtUniqueIDSearchText.Text;
             Properties.Settings.Default.TearWindowImage = txtTearWindowImage.Text;
-
             Properties.Settings.Default.EnableKeyboardButton = Convert.ToBoolean(cmbKeyboardButton.Text);
             Properties.Settings.Default.Scanner = Convert.ToBoolean(cmbScanner.Text);
+            Properties.Settings.Default.EventID = txtEventID.Text;
             Properties.Settings.Default.Save();
 
 
-            Form1 obj1 = new Form1();
+            badge obj1 = new badge();
             obj1.ShowDialog();
             this.Close();
         }

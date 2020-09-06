@@ -334,5 +334,17 @@ namespace OHDR.Properties {
                 this["Scanner"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EventID {
+            get {
+                return ((string)(this["EventID"]));
+            }
+            set {
+                this["EventID"] = value;
+            }
+        }
     }
 }
