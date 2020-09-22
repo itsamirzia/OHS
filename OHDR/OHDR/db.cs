@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using System.Configuration;
 using System.Data;
+using System.Configuration;
 
 namespace OHDR
 {
     class db
     {
-        public static MySqlConnection conn = new MySqlConnection("server=localhost;user=root;port=3306");
+        public static MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myDatabaseConnection"].ConnectionString);
+        
         public static MySqlConnection DBConnectionToCreateDB = new MySqlConnection(ConfigurationManager.AppSettings["DBConn"].ToString());
         //public static string username;
 
 
 
         #region        Mysql     Query And Execution
-
         public static bool SQLQuery(ref MySqlConnection MYSQL_connection, ref DataTable DTCombo, string querystr)
         {
             return SQLQuery(ref MYSQL_connection, ref DTCombo, querystr, false);

@@ -226,8 +226,11 @@ namespace OHDR
             Properties.Settings.Default.EventID = txtEventID.Text;
             Properties.Settings.Default.Save();
 
+            DataPuller dp = new DataPuller();
+            dp.ShowDialog();
+            //this.Close();
 
-            badge obj1 = new badge();
+            Form1 obj1 = new Form1();
             obj1.ShowDialog();
             this.Close();
         }

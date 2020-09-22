@@ -74,9 +74,9 @@ namespace OHDR
             format1.Alignment = StringAlignment.Center;
             format1.LineAlignment = StringAlignment.Center;
 
-            if (true)
+            if (Properties.Settings.Default.PrintBarcode)
             {
-                Bitmap bitm = new Bitmap(barcode.Length * 5, 20);
+                Bitmap bitm = new Bitmap(barcode.Length * 3, 10);
                 using (Graphics graphic = Graphics.FromImage(bitm))
                 {
 
@@ -84,11 +84,11 @@ namespace OHDR
                     Rectangle displayBarcode =
                                     new Rectangle(Convert.ToInt32(display3[0]), Convert.ToInt32(display3[1]), Convert.ToInt32(display3[2]), Convert.ToInt32(display3[3]));
 
-                    Font newfont = new Font("IDAutomationHC39M", 16);
+                    Font newfont = new Font("IDAutomationHC39M", 12);
                     PointF point = new PointF(2f, 2f);
                     SolidBrush black = new SolidBrush(Color.Black);
                     SolidBrush white = new SolidBrush(Color.White);
-                    ev.Graphics.FillRectangle(white, 0, 0, bitm.Width / 2, bitm.Height);
+                    ev.Graphics.FillRectangle(white, 0, 0, bitm.Width, bitm.Height);
                     ev.Graphics.DrawString("*" + barcode.ToUpper() + "*", newfont, black, displayBarcode, format1);
                 }
             }

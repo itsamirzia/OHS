@@ -33,11 +33,20 @@ namespace OHDR
                                       PRIMARY KEY(`Email`)
                                     ) ENGINE = InnoDB DEFAULT CHARSET = latin1; "))
                 {
-                    admin objA = new admin();
-                    objA.ShowDialog();
-                    if (objA.isclose)
+                    if (db.ExecuteSQLQuery(ref db.conn, @"CREATE TABLE IF NOT EXISTS `ohs`.`retry_print_status` (
+                                      `event_id` varchar(8) NOT NULL,
+                                      `user_id` varchar(8) NOT NULL,
+                                      `print_datetime` varchar(45) NOT NULL,
+                                      `print_status` varchar(5) NOT NULL,
+                                      PRIMARY KEY (`event_id`,`user_id`)
+                                    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;"))
                     {
-                        Application.Run(new Administrator());
+                        admin objA = new admin();
+                        objA.ShowDialog();
+                        if (objA.isclose)
+                        {
+                            Application.Run(new Administrator());
+                        }
                     }
                 }
                 else
