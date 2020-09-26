@@ -94,7 +94,7 @@ namespace OHDR
                 response = response.Replace("\\", "");
                 return response;
             }
-            catch(Exception ex) 
+            catch(Exception) 
             { 
                 return ""; 
             }

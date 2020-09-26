@@ -237,6 +237,7 @@ namespace OHDR
 
         private void btnDownloadData_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             xlApp = new Microsoft.Office.Interop.Excel.Application();
             xlApp.Visible = false;
             xlApp.DisplayAlerts = false;
@@ -279,6 +280,7 @@ namespace OHDR
             xlWorkbook.Close();
             xlApp.Quit();
             releaseObject(xlApp);
+            this.Cursor = Cursors.Default;
             MessageBox.Show("Data Saved", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

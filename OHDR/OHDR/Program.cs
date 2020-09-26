@@ -30,7 +30,7 @@ namespace OHDR
                                       `Registration_Type` varchar(45) NOT NULL DEFAULT '',
                                       `EmpCode` varchar(45) NOT NULL,
                                       `IsPrinted` varchar(50) NOT NULL,
-                                      PRIMARY KEY(`Email`)
+                                      PRIMARY KEY(`Email`,`EmpCode`)
                                     ) ENGINE = InnoDB DEFAULT CHARSET = latin1; "))
                 {
                     if (db.ExecuteSQLQuery(ref db.conn, @"CREATE TABLE IF NOT EXISTS `ohs`.`retry_print_status` (

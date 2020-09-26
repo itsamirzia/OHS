@@ -18,3 +18,21 @@ D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.application
 D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.exe
 D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.pdb
 D:\MyGITProjects\OHS\OHDR\OHDR\obj\Debug\OHDR.DataPuller.resources
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.admin.resources
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.Administrator.resources
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.badge.resources
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.DataPuller.resources
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.Form1.resources
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.Form3.resources
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.Properties.Resources.resources
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.csproj.GenerateResource.Cache
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.exe
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.pdb
+E:\git C# codes\OHS\OHDR\OHDR\bin\Debug\OHDR.exe.config
+E:\git C# codes\OHS\OHDR\OHDR\bin\Debug\OHDR.exe.manifest
+E:\git C# codes\OHS\OHDR\OHDR\bin\Debug\OHDR.application
+E:\git C# codes\OHS\OHDR\OHDR\bin\Debug\OHDR.exe
+E:\git C# codes\OHS\OHDR\OHDR\bin\Debug\OHDR.pdb
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.exe.manifest
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.application
+E:\git C# codes\OHS\OHDR\OHDR\obj\Debug\OHDR.csprojResolveAssemblyReference.cache

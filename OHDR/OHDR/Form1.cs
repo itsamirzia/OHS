@@ -77,12 +77,13 @@ namespace OHDR
             }
             base.WndProc(ref m);
         }
+
         private void PrintTheBadge( )
         {
             BadgePrinter.barcode = barcode;
-            BadgePrinter.nameDesignationCompany = textBox1.Text + " " + textBox2.Text + Environment.NewLine + Environment.NewLine
-                + textBox3.Text + Environment.NewLine + Environment.NewLine
-                + textBox4.Text + Environment.NewLine + Environment.NewLine;
+            BadgePrinter.nameDesignationCompany = textBox1.Text + " " + textBox4.Text + Environment.NewLine + Environment.NewLine
+                + textBox2.Text + Environment.NewLine + Environment.NewLine
+                + textBox5.Text + Environment.NewLine + Environment.NewLine;
             BadgePrinter.registrationType = Registration_Type;
             BadgePrinter.PrintBadges();
 
