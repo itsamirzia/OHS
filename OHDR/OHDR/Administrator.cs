@@ -228,7 +228,7 @@ namespace OHDR
 
             DataPuller dp = new DataPuller();
             dp.ShowDialog();
-            //this.Close();
+            this.Hide();
 
             Form1 obj1 = new Form1();
             obj1.ShowDialog();
@@ -284,7 +284,7 @@ namespace OHDR
 
         private void btnClearData_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("It will erase all your data. Would you like to contineo?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("It will erase all your data. Would you like to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result.ToString().ToUpper() == "YES")
             {
                 if (db.ExecuteSQLQuery(ref db.conn, "create table register_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "  select * from register"))

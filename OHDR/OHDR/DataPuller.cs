@@ -31,10 +31,10 @@ namespace OHDR
             if (!string.IsNullOrEmpty(response))
             {
                 int maxValue = Convert.ToInt32(response);
-                expactedTime = maxValue;
+                expactedTime = (3*maxValue)/5;
                 progressBar1.Maximum = maxValue;
                 progressBar1.Minimum = 0;
-                OnlineOfflineSyncup.reverseRequestCounter = maxValue/5;
+                OnlineOfflineSyncup.reverseRequestCounter = maxValue;
             }
         }
 
@@ -55,33 +55,20 @@ namespace OHDR
 
             if (percentValue >= 100)
             {
-                //this.Invoke((MethodInvoker)delegate
-                //{
                     progressBar1.Value = progressBar1.Maximum;
                     lblProccessing.Text = "100% - Completed";
                     lblTimeElapsed.Text = "Time remaining 0 Seconds";
                     System.Threading.Thread.Sleep(5000);
                     this.Close();
-                //});
             }
             else
             {
-
-                //this.Invoke((MethodInvoker)delegate
-                //{
                     progressBar1.Value = dt.Rows.Count;
                     lblProccessing.Text = percentValue.ToString() + "% Records Processed";
-                    lblTimeElapsed.Text = "Expected Time remaining " + expactedTime / 60 + " Minutes and "+expactedTime%60+" Seconds";
+                    lblTimeElapsed.Text = "Estimated Time remaining " + expactedTime / 60 + " Minutes and "+expactedTime%60+" Seconds";
                     expactedTime -= 3;
-                //});
                     OnlineOfflineSyncup.UpdateOfflineDatabase();
                     OnlineOfflineSyncup.ReverseUpdateOfflineDatabase();
-                //ThreadStart thStart = new ThreadStart(OnlineOfflineSyncup.UpdateOfflineDatabase);
-                //System.Threading.Thread th = new System.Threading.Thread(thStart);
-                //th.Start();
-                //ThreadStart thStart2 = new ThreadStart(OnlineOfflineSyncup.ReverseUpdateOfflineDatabase);
-                //System.Threading.Thread th2 = new System.Threading.Thread(thStart2);
-                //th2.Start();
             }
         }
     }

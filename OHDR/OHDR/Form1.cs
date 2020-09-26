@@ -96,7 +96,7 @@ namespace OHDR
                     db.SQLQuery(ref db.conn, ref dt, "insert into retry_print_status values ('" + Properties.Settings.Default.EventID.ToString() + "','" + barcode + "','" + dt.Rows[0]["Registered_Time"].ToString() + "','" + dt.Rows[0]["IsPrinted"].ToString() + "')");
                 }
             }
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(3000);
 
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -113,7 +113,7 @@ namespace OHDR
                 panel1.Visible = true;
             else
                 panel1.Visible = false;
-            //button4.Visible = button4.Enabled = Properties.Settings.Default.EnableKeyboardButton;
+
             panel2.Visible = true;
             Taskbar.Hide();
             Icon icon = Icon.ExtractAssociatedIcon(Application.StartupPath + "\\" + Properties.Settings.Default.IconName);
@@ -126,11 +126,7 @@ namespace OHDR
                 pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             }
             txtBarcodeSearch.Text = Properties.Settings.Default.EmailSearchText;
-            //txtSearchBox2.Text = Properties.Settings.Default.UniqueIDSearchText;
-            //MainPanelLebel.Text = Properties.Settings.Default.MainPanelLebel.ToUpper();
             panel3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.HeaderImage);
-            //panel2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.OrganisedByImage);
-            //button3.BackColor = 
             txtSearchBox1.BackColor = textBox1.ForeColor = textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor = Color.White;// "#9E2065";
             button3.BackColor = txtSearchBox1.ForeColor = lblMessage.ForeColor = textBox1.BackColor = textBox2.BackColor = textBox3.BackColor = textBox4.BackColor = textBox5.BackColor = textBox6.BackColor = Properties.Settings.Default.ThemeColor;
             pnlThankYou.BackgroundImage = Image.FromFile(Application.StartupPath + "\\" + Properties.Settings.Default.TearWindowImage);
@@ -257,10 +253,10 @@ namespace OHDR
             {
 
                 textBox1.Text = dt_old.Rows[0][0].ToString();
-                textBox2.Text = dt_old.Rows[0][1].ToString();
-                textBox3.Text = dt_old.Rows[0][2].ToString();
-                textBox4.Text = dt_old.Rows[0][3].ToString();
-                textBox5.Text = dt_old.Rows[0][4].ToString();
+                textBox4.Text = dt_old.Rows[0][1].ToString();
+                textBox2.Text = dt_old.Rows[0][2].ToString();
+                textBox5.Text = dt_old.Rows[0][3].ToString();
+                textBox3.Text = dt_old.Rows[0][4].ToString();
                 textBox6.Text = dt_old.Rows[0][5].ToString();
                 isOld = true;
                 barcode = dt_old.Rows[0][8].ToString();
@@ -374,9 +370,18 @@ namespace OHDR
         
         private void timer2_Tick(object sender, EventArgs e)
         {
-            OnlineOfflineSyncup.UpdatePrintStatus();
-            OnlineOfflineSyncup.UpdateFailedPrintStatus();
-            //OnlineOfflineSyncup.GetLatestRecordsToUpdateInOfflineDB();
+            System.Threading.ThreadStart ts = new System.Threading.ThreadStart(OnlineOfflineSyncup.UpdatePrintStatus);
+            System.Threading.Thread th = new System.Threading.Thread(ts);
+            th.Start();
+            //OnlineOfflineSyncup.UpdatePrintStatus();
+            System.Threading.ThreadStart ts1 = new System.Threading.ThreadStart(OnlineOfflineSyncup.UpdateFailedPrintStatus);
+            System.Threading.Thread th1 = new System.Threading.Thread(ts1);
+            th1.Start();
+            //OnlineOfflineSyncup.UpdateFailedPrintStatus();
+            System.Threading.ThreadStart ts2 = new System.Threading.ThreadStart(OnlineOfflineSyncup.UpdateLatestRecords);
+            System.Threading.Thread th2 = new System.Threading.Thread(ts2);
+            th2.Start();
+            //OnlineOfflineSyncup.UpdateLatestRecords();
         }
 
 
@@ -390,6 +395,7 @@ namespace OHDR
             if (txtBarcodeSearch.Text.Length == 8)
             {
                 printMyBadge();
+                timer3.Enabled = true;
             }
         }
         private void printMyBadge()
@@ -419,30 +425,19 @@ namespace OHDR
                     string email = dr[5].ToString();
                     string registrationType = dr[7].ToString();
                     string empCode = pscanData;
-                    
-                    
-                    
-                    textBox1.Text = firstName;
-                    textBox2.Text = lastName;
-                    textBox3.Text = designation;
-                    textBox4.Text = company;
-                    textBox5.Text = mobile;
-                    textBox6.Text = email;
-                    System.Threading.Thread.Sleep(2000);
-                    PrintTheBadge();
-                    //BeepTheBeeper();
-                    System.Threading.Thread.Sleep(1000);
-                    textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
-                    //this.Invoke((MethodInvoker)delegate
-                    //{
-                        panel2.Visible = true;
-                    //});
-                    txtBarcodeSearch.Enabled = true;
-                    pnlThankYou.Visible = false;
-                    this.ActiveControl = txtBarcodeSearch;
-                    panel1.Visible = true;
-                    this.Cursor = Cursors.Default;
+
+                    this.Invoke(new MethodInvoker(() =>
+                    {
+                        textBox1.Text = firstName;
+                        textBox4.Text = lastName;
+                        textBox2.Text = designation;
+                        textBox5.Text = company;
+                        textBox3.Text = mobile;
+                        textBox6.Text = email;
+                    }));
+
                 }
+                PrintTheBadge();
             }
             else
             {
@@ -459,7 +454,10 @@ namespace OHDR
         private void txtBarcodeSearch_TextChanged(object sender, EventArgs e)
         {
             if (txtBarcodeSearch.Text.Length == 8)
+            {
                 printMyBadge();
+                timer3.Enabled = true;
+            }
         }
 
         private void txtSearchBox1_TextChanged(object sender, EventArgs e)
@@ -475,18 +473,24 @@ namespace OHDR
             db.SQLQuery(ref db.conn, ref dt, sqlQuery);
             if (dt.Rows.Count > 0)
             {
-                if (dt.Rows[0]["IsPrinted"].ToString() == "FALSE")
+                if (dt.Rows[0]["IsPrinted"].ToString().ToUpper() == "FALSE")
                 {
-                    textBox1.Text = dt.Rows[0][0].ToString();
-                    textBox2.Text = dt.Rows[0][1].ToString();
-                    textBox3.Text = dt.Rows[0][2].ToString();
-                    textBox4.Text = dt.Rows[0][3].ToString();
-                    textBox5.Text = dt.Rows[0][4].ToString();
-                    textBox6.Text = dt.Rows[0][5].ToString();
+                    this.Cursor = Cursors.WaitCursor;
+                    this.Invoke(new MethodInvoker(() =>
+                    {
+                        textBox1.Text = dt.Rows[0][0].ToString();
+                        textBox2.Text = dt.Rows[0][1].ToString();
+                        textBox3.Text = dt.Rows[0][2].ToString();
+                        textBox4.Text = dt.Rows[0][3].ToString();
+                        textBox5.Text = dt.Rows[0][4].ToString();
+                        textBox6.Text = dt.Rows[0][5].ToString();
+                    }));
                     txtBarcodeSearch.Text = dt.Rows[0]["EmpCode"].ToString();
+                    
                 }
                 else
                 {
+                    textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = "";
                     MessageBox.Show("Badge is already printed", "Information", MessageBoxButtons.OK);
                 }
             }
@@ -494,6 +498,18 @@ namespace OHDR
             {
                 MessageBox.Show("User not found", "Warning", MessageBoxButtons.OK);
             }
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            txtSearchBox1.Text = textBox1.Text = textBox2.Text = textBox3.Text = textBox4.Text = textBox5.Text = textBox6.Text = txtBarcodeSearch.Text = "";
+            panel2.Visible = true;
+            txtBarcodeSearch.Enabled = true;
+            pnlThankYou.Visible = false;
+            panel1.Visible = true;
+            this.Cursor = Cursors.Default;
+            this.ActiveControl = txtBarcodeSearch;
+            timer3.Enabled = false;
         }
     }
 }

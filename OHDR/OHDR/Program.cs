@@ -51,7 +51,7 @@ namespace OHDR
                 }
                 else
                 {
-                    MessageBox.Show("Database connection could not established. Or database is not installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Not able to create DB tables", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

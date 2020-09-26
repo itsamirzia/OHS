@@ -13,9 +13,16 @@ namespace OHDR
 {
     static class OnlineOfflineSyncup
     {
-        private static int requestCounter = 1;
-        private static int requestPrintCounter = 1;
-        public static int reverseRequestCounter = 1000;
+        private static int requestCounter = 1; //counter for pulling request in forward direction
+        private static int requestPrintCounter = 1;//Counter for pulling print request
+        public static int reverseRequestCounter = 10000;//counter for pulling request in reverse direction
+        /// <summary>
+        /// Update print status to online database when badge printing is successful.
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="printedtime"></param>
+        /// <param name="printstatus"></param>
+        /// <returns>returns boolean</returns>
         public static bool UpdateOnlinePrintStatus(string userid, string printedtime, string printstatus)
         {
             try
@@ -41,18 +48,9 @@ namespace OHDR
             }
             catch { return false; }
         }
-        public static void SetReverseCounter()
-        {
-            string response = GetOnlineData(requestCounter, true);
-            if (!string.IsNullOrEmpty(response))
-            {
-                double rowCount = Convert.ToDouble(response);
-                if (rowCount > 5)
-                {
-                    reverseRequestCounter = Convert.ToInt32(Math.Ceiling(rowCount / 5));                    
-                }
-            }
-        }
+        /// <summary>
+        /// retry updating print status to online databse if failed in updating on badge printing success.
+        /// </summary>
         public static void UpdateFailedPrintStatus()
         {
             DataTable dt = new DataTable();
@@ -69,6 +67,13 @@ namespace OHDR
                 }
             }
         }
+        /// <summary>
+        /// Get registered data or total registered count(Depend on input)
+        /// </summary>
+        /// <param name="counter"></param>
+        /// <param name="rowcountRequest"></param>
+        /// <param name="reverseRequest"></param>
+        /// <returns>response string</returns>
         public static string GetOnlineData(int counter, bool rowcountRequest = false, string reverseRequest="no")
         {
             try
@@ -89,8 +94,16 @@ namespace OHDR
                 response = response.Replace("\\", "");
                 return response;
             }
-            catch { return ""; }
+            catch(Exception ex) 
+            { 
+                return ""; 
+            }
         }
+        /// <summary>
+        /// Get print status from online database to sync all environments
+        /// </summary>
+        /// <param name="counter"></param>
+        /// <returns>returns response string</returns>
         public static string GetPrintStatus(int counter)
         {
             try
@@ -110,8 +123,28 @@ namespace OHDR
             }
             catch { return ""; }
         }
+        /// <summary>
+        /// update latest records if comes in online database.
+        /// </summary>
         public static void UpdateLatestRecords()
-        { }
+        {
+            string rows = GetOnlineData(1, true);
+            if(!string.IsNullOrEmpty(rows))
+            {
+                int totalRows = Convert.ToInt32(rows);
+                string response = GetOnlineData(totalRows, false, "yes");
+                if (!string.IsNullOrEmpty(response))
+                {
+                    InsertRecordsInDB(response);
+                }
+            }
+        }
+        /// <summary>
+        /// reset or increase counters 
+        /// </summary>
+        /// <param name="response"></param>
+        /// <param name="isPrintCounter"></param>
+        /// <returns>boolean</returns>
         private static bool ResetOrIncreaseCounter(string response, bool isPrintCounter = false)
         {
             if (response.Contains("Info: DB Updated"))
@@ -131,20 +164,32 @@ namespace OHDR
                 return false;
             }
         }
+        /// <summary>
+        /// update offline database after successfully fetching records from online database
+        /// </summary>
         public static void UpdateOfflineDatabase()
         {
             try
             {
                 string response = GetOnlineData(requestCounter);
-                if (ResetOrIncreaseCounter(response))
-                    return;
-                InsertRecordsInDB(response);
+                if (!string.IsNullOrEmpty(response))
+                {
+                    if (ResetOrIncreaseCounter(response))
+                        return;
+                    InsertRecordsInDB(response);
+                }
+           
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
+        /// <summary>
+        /// insert records in offline database
+        /// </summary>
+        /// <param name="response"></param>
+        /// <returns></returns>
         private static bool InsertRecordsInDB(string response)
         {
             try
@@ -165,6 +210,13 @@ namespace OHDR
             }
             catch { return false; }
         }
+        /// <summary>
+        /// Encryption
+        /// </summary>
+        /// <param name="prm_text_to_encrypt"></param>
+        /// <param name="prm_key"></param>
+        /// <param name="prm_iv"></param>
+        /// <returns>encrypted string</returns>
         private static string Encrypt(string prm_text_to_encrypt, string prm_key, string prm_iv)
         {
             var sToEncrypt = prm_text_to_encrypt;
@@ -194,23 +246,38 @@ namespace OHDR
 
             return (Convert.ToBase64String(encrypted));
         }
+        /// <summary>
+        /// update offline database after pulling records from online database in reverse direction
+        /// through reverse filling we can reduce half of the total time in pulling from online database
+        /// </summary>
         public static void ReverseUpdateOfflineDatabase()
         {
             string response = GetOnlineData(reverseRequestCounter,false,"yes");
-            reverseRequestCounter -= 1;
-            InsertRecordsInDB(response);
+            if (!string.IsNullOrEmpty(response))
+            {
+                reverseRequestCounter -= 5;
+                InsertRecordsInDB(response);
+            }
         }
+        /// <summary>
+        /// update offline database after pulling print status from online database
+        /// </summary>
         public static void UpdatePrintStatus()
         {
             try
             {
                 string response = GetPrintStatus(requestPrintCounter);
                 ResetOrIncreaseCounter(response, true);
-                UpdateDBRecords(response);
+                if(!string.IsNullOrEmpty(response))
+                    UpdateDBRecords(response);
             }
             catch { }
 
         }
+        /// <summary>
+        /// update db records after pulling print status from online database
+        /// </summary>
+        /// <param name="response"></param>
         private static void UpdateDBRecords(string response)
         {
             try
@@ -219,7 +286,7 @@ namespace OHDR
                 string queryData = string.Empty;
                 foreach (Print_Status rd in Data)
                 {
-                    db.ExecuteSQLQuery(ref db.conn, "update register set Registered_Time='" + rd.print_datetime + "', IsPrinted='" + rd.print_status + "'");
+                    db.ExecuteSQLQuery(ref db.conn, "update register set Registered_Time='" + rd.print_datetime + "', IsPrinted='" + rd.print_status + "' where EmpCode='"+rd.user_id+"'");
                 }
             }
             catch { }
