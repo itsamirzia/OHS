@@ -31,10 +31,13 @@ namespace OHDR
             if (!string.IsNullOrEmpty(response))
             {
                 int maxValue = Convert.ToInt32(response);
-                expactedTime = (3*maxValue)/5;
-                progressBar1.Maximum = maxValue;
-                progressBar1.Minimum = 0;
-                OnlineOfflineSyncup.reverseRequestCounter = maxValue;
+                if (maxValue > 0)
+                {
+                    expactedTime = (3 * maxValue) / 5;
+                    progressBar1.Maximum = maxValue;
+                    progressBar1.Minimum = 0;
+                    OnlineOfflineSyncup.reverseRequestCounter = maxValue;
+                }
             }
         }
 
@@ -66,7 +69,14 @@ namespace OHDR
                     progressBar1.Value = dt.Rows.Count;
                     lblProccessing.Text = percentValue.ToString() + "% Records Processed";
                     lblTimeElapsed.Text = "Estimated Time remaining " + expactedTime / 60 + " Minutes and "+expactedTime%60+" Seconds";
+                if (expactedTime <= 3)
+                {
+                    lblTimeElapsed.Text = "Estimated Time remaining " + expactedTime / 60 + " Minutes and " + expactedTime % 60 + " Seconds\r\nSystem is taking longer time then expected. You might be running with slow internet connection.";
+                }
+                else
+                {
                     expactedTime -= 3;
+                }
                     OnlineOfflineSyncup.UpdateOfflineDatabase();
                     OnlineOfflineSyncup.ReverseUpdateOfflineDatabase();
             }

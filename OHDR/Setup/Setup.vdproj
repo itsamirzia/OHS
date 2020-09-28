@@ -106,13 +106,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0642614E3EA94D708C4DD11FD971A711"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_43EF372C0AE185346DA8D96B30142937"
+        "OwnerKey" = "8:_3D856FC5C0B16CF2513D348C699B3642"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -124,7 +118,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3D856FC5C0B16CF2513D348C699B3642"
+        "OwnerKey" = "8:_43EF372C0AE185346DA8D96B30142937"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0642614E3EA94D708C4DD11FD971A711"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -145,6 +145,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -161,6 +169,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -237,11 +253,6 @@
             "AssemblyAsmDisplayName" = "8:Interop.CoreScanner, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_3D856FC5C0B16CF2513D348C699B3642"
-                    {
-                    "Name" = "8:Interop.CoreScanner.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Interop.CoreScanner.dll"
             "TargetName" = "8:"
@@ -268,11 +279,6 @@
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_43EF372C0AE185346DA8D96B30142937"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -359,11 +365,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_74A447FFDE5F7D9BBE8D42BA5092D1C3"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -470,11 +471,6 @@
             "AssemblyAsmDisplayName" = "8:MySql.Data, Version=5.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F7F7924FD92A6DEF08554B227122C2EA"
-                    {
-                    "Name" = "8:MySql.Data.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:MySql.Data.dll"
             "TargetName" = "8:"
@@ -561,15 +557,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:OES"
-        "ProductCode" = "8:{F916805A-0265-4423-9C34-252E66A1E2CE}"
-        "PackageCode" = "8:{CE6A2218-73FB-46D4-8C0B-F9DB5E52CC76}"
+        "ProductCode" = "8:{97DF4C58-6633-4DB2-85E6-D0877C95D76E}"
+        "PackageCode" = "8:{ABA5776C-A4C2-4FCD-867A-7D9F65C1F647}"
         "UpgradeCode" = "8:{08106919-B3B2-4C10-8D7D-AEE322D72A57}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.0.4"
+        "ProductVersion" = "8:2.0.5"
         "Manufacturer" = "8:OmanExpo"
         "ARPHELPTELEPHONE" = "8:7678542093"
         "ARPHELPLINK" = "8:witsof.in"
