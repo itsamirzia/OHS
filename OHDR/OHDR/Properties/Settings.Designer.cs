@@ -12,8 +12,8 @@ namespace OHDR.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
@@ -133,7 +133,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool EnableSearch {
             get {
                 return ((bool)(this["EnableSearch"]));
@@ -157,7 +157,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("banner.png")]
+        [global::System.Configuration.DefaultSettingValueAttribute("OE_SIDE_BANNER.jpg")]
         public string HeaderImage {
             get {
                 return ((string)(this["HeaderImage"]));
@@ -181,7 +181,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FHO.ico")]
+        [global::System.Configuration.DefaultSettingValueAttribute("oe.ico")]
         public string IconName {
             get {
                 return ((string)(this["IconName"]));
@@ -205,7 +205,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sideBanner.gif")]
+        [global::System.Configuration.DefaultSettingValueAttribute("setup_side.jpg")]
         public string LeftSideBarImage {
             get {
                 return ((string)(this["LeftSideBarImage"]));
@@ -217,7 +217,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sideBanner.gif")]
+        [global::System.Configuration.DefaultSettingValueAttribute("setup_side.jpg")]
         public string RightSideBarImage {
             get {
                 return ((string)(this["RightSideBarImage"]));
@@ -241,7 +241,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        [global::System.Configuration.DefaultSettingValueAttribute("bg.jpg")]
         public string BackgroundImage {
             get {
                 return ((string)(this["BackgroundImage"]));
@@ -301,7 +301,7 @@ namespace OHDR.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tearWindow.jpg")]
+        [global::System.Configuration.DefaultSettingValueAttribute("thankyoubanner.png")]
         public string TearWindowImage {
             get {
                 return ((string)(this["TearWindowImage"]));
@@ -320,6 +320,30 @@ namespace OHDR.Properties {
             }
             set {
                 this["EnableKeyboardButton"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Scanner {
+            get {
+                return ((bool)(this["Scanner"]));
+            }
+            set {
+                this["Scanner"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EventID {
+            get {
+                return ((string)(this["EventID"]));
+            }
+            set {
+                this["EventID"] = value;
             }
         }
     }

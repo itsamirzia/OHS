@@ -14,6 +14,7 @@ namespace OHDR
         [STAThread]
         static void Main()
         {
+            Taskbar.Show();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             if (db.ExecuteSQLQuery(ref db.DBConnectionToCreateDB, "CREATE DATABASE IF NOT EXISTS ohs;"))
@@ -29,19 +30,28 @@ namespace OHDR
                                       `Registration_Type` varchar(45) NOT NULL DEFAULT '',
                                       `EmpCode` varchar(45) NOT NULL,
                                       `IsPrinted` varchar(50) NOT NULL,
-                                      PRIMARY KEY(`Email`)
+                                      PRIMARY KEY(`Email`,`EmpCode`)
                                     ) ENGINE = InnoDB DEFAULT CHARSET = latin1; "))
                 {
-                    admin objA = new admin();
-                    objA.ShowDialog();
-                    if (objA.isclose)
+                    if (db.ExecuteSQLQuery(ref db.conn, @"CREATE TABLE IF NOT EXISTS `ohs`.`retry_print_status` (
+                                      `event_id` varchar(8) NOT NULL,
+                                      `user_id` varchar(8) NOT NULL,
+                                      `print_datetime` varchar(45) NOT NULL,
+                                      `print_status` varchar(5) NOT NULL,
+                                      PRIMARY KEY (`event_id`,`user_id`)
+                                    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;"))
                     {
-                        Application.Run(new Form2());
+                        admin objA = new admin();
+                        objA.ShowDialog();
+                        if (objA.isclose)
+                        {
+                            Application.Run(new Administrator());
+                        }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Database connection could not established. Or database is not installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Not able to create DB tables", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

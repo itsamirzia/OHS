@@ -30,34 +30,34 @@
       <Value Profile="(Default)">EVE</Value>
     </Setting>
     <Setting Name="EnableSearch" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PrintBarcode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="HeaderImage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">banner.png</Value>
+      <Value Profile="(Default)">OE_SIDE_BANNER.jpg</Value>
     </Setting>
     <Setting Name="OrganisedByImage" Type="System.String" Scope="User">
       <Value Profile="(Default)">organisedby.jpg</Value>
     </Setting>
     <Setting Name="IconName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">FHO.ico</Value>
+      <Value Profile="(Default)">oe.ico</Value>
     </Setting>
     <Setting Name="EnableSideBanner" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="LeftSideBarImage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">sideBanner.gif</Value>
+      <Value Profile="(Default)">setup_side.jpg</Value>
     </Setting>
     <Setting Name="RightSideBarImage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">sideBanner.gif</Value>
+      <Value Profile="(Default)">setup_side.jpg</Value>
     </Setting>
     <Setting Name="MainPanelLebel" Type="System.String" Scope="User">
       <Value Profile="(Default)">PLEASE CONFIRM BEFORE PRINT</Value>
     </Setting>
     <Setting Name="BackgroundImage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">None</Value>
+      <Value Profile="(Default)">bg.jpg</Value>
     </Setting>
     <Setting Name="DisplayBGImage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -72,10 +72,16 @@
       <Value Profile="(Default)">ENTER YOUR UNIQUE ID...</Value>
     </Setting>
     <Setting Name="TearWindowImage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">tearWindow.jpg</Value>
+      <Value Profile="(Default)">thankyoubanner.png</Value>
     </Setting>
     <Setting Name="EnableKeyboardButton" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Scanner" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EventID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
